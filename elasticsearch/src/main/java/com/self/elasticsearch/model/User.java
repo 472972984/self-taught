@@ -1,8 +1,5 @@
 package com.self.elasticsearch.model;
 
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-
 /**
  * @author ChenHQ
  * 系统名称: elasticsearch
@@ -11,51 +8,49 @@ import org.springframework.data.elasticsearch.annotations.Field;
  * 软件版权: 杭州数美科技有限公司
  * 功能说明：
  * 系统版本：
- * 开发时间: create in 2020/8/24
+ * 开发时间: create in 2020/8/28
  * 审核人员:
  * 相关文档:
  * 修改记录: 修改日期 修改人员 修改说明
  */
-@Document(indexName = "ecut")
 public class User {
 
-    private String id;
+    private String username;
 
-    private String name;
+    private int age;
 
-    private String sex;
+    private String gender;
 
-    private String age;
-
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public String getId() {
-        return id;
+    public String getGender() {
+        return gender;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public User() {
+    }
+
+    public User(String username, int age, String gender) {
+        this.username = username;
+        this.age = age;
+        this.gender = gender;
     }
 }

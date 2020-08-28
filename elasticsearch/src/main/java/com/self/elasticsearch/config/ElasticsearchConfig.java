@@ -1,9 +1,12 @@
 package com.self.elasticsearch.config;
 
-import org.elasticsearch.client.Client;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.HttpAsyncResponseConsumerFactory;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 /**
  * @author ChenHQ
@@ -21,9 +24,24 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 @Configuration
 public class ElasticsearchConfig {
 
-    @Bean
-    public ElasticsearchTemplate elasticsearchTemplate(Client client) {
-        return new ElasticsearchTemplate(client);
+    public static final RequestOptions COMMON_OPTIONS;
+
+    static {
+        RequestOptions.Builder builder = RequestOptions.DEFAULT.toBuilder();
+       /* builder.addHeader("Authorization", "Bearer " + TOKEN);
+        builder.setHttpAsyncResponseConsumerFactory(
+                new HttpAsyncResponseConsumerFactory
+                        .HeapBufferedResponseConsumerFactory(30 * 1024 * 1024 * 1024));*/
+        COMMON_OPTIONS = builder.build();
     }
+    @Bean
+    public RestHighLevelClient restHighLevelClient(){
+        RestHighLevelClient highLevelClient = new RestHighLevelClient(RestClient.builder(
+                new HttpHost("192.168.154.128", 9200, "http")
+        ));
+        return highLevelClient;
+    }
+
+
 
 }
