@@ -38,6 +38,13 @@
 			<version>7.3.2</version>
 		</dependency>
 
+		<!--封装 es-->
+<!--		<dependency>
+			<groupId>org.zxp</groupId>
+			<artifactId>esclientrhl</artifactId>
+			<version>7.0.0</version>
+		</dependency>-->
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
