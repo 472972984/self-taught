@@ -136,6 +136,25 @@ public class ElasticsearchApplicationTests {
 
 	}
 
+	@Test
+	public void testQuery2() throws Exception{
+
+		SearchRequest request = new SearchRequest();
+
+		request.indices("account");
+
+		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+		sourceBuilder.query(QueryBuilders.matchQuery("age",28));
+
+		request.source(sourceBuilder);
+
+		SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+
+		System.out.println("response = " + response);
+
+	}
+
 
 
 
