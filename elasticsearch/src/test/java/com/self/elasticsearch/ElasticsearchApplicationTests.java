@@ -2,19 +2,14 @@ package com.self.elasticsearch;
 
 import com.alibaba.fastjson.JSON;
 import com.self.elasticsearch.model.Account;
-import com.self.elasticsearch.model.User;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +28,7 @@ public class ElasticsearchApplicationTests {
 	/**
 	 * 从 es 中检索数据
 	 */
-	@Test
+	/*@Test
 	public void searchData() throws IOException {
 		//创建检索请求
 		SearchRequest searchRequest = new SearchRequest();
@@ -80,14 +75,14 @@ public class ElasticsearchApplicationTests {
 
 
 
-	}
+	}*/
 
 
 	/**
 	 * 新增一个索引 users ，并插入一条数据
 	 * @throws IOException
 	 */
-	@Test
+	/*@Test
 	public void testIndex() throws IOException {
 		IndexRequest indexRequest = new IndexRequest("users");
 
@@ -103,7 +98,7 @@ public class ElasticsearchApplicationTests {
 
 		System.out.println("response = " + response);
 
-	}
+	}*/
 
 
 
@@ -115,7 +110,7 @@ public class ElasticsearchApplicationTests {
 	}
 
 
-	@Test
+/*	@Test
 	public void testQuery() throws IOException {
 		SearchRequest searchRequest = new SearchRequest();
 
@@ -134,7 +129,7 @@ public class ElasticsearchApplicationTests {
 
 		SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
 
-	}
+	}*/
 
 	@Test
 	public void testQuery2() throws Exception{
@@ -153,7 +148,53 @@ public class ElasticsearchApplicationTests {
 
 		System.out.println("response = " + response);
 
+		SearchHits hits = response.getHits();
+
+		SearchHit[] searchHits = hits.getHits();
+
+		for (SearchHit searchHit : searchHits) {
+			//System.out.println("searchHit = " + searchHit);
+			Account account = JSON.parseObject(searchHit.getSourceAsString(), Account.class);
+			System.out.println("account = " + account);
+		}
+
 	}
+
+	@Test
+	public void test3() throws IOException {
+
+		SearchRequest searchRequest = new SearchRequest();
+
+		searchRequest.indices("account");
+
+		SearchSourceBuilder builder = new SearchSourceBuilder();
+
+		MatchQueryBuilder builder1 = QueryBuilders.matchQuery("age", "28");
+
+		builder.query(builder1);
+
+		System.out.println("builder = " + builder);
+
+		searchRequest.source(builder);
+
+
+		SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
+
+		System.out.println("search = " + search);
+
+		SearchHit[] hits = search.getHits().getHits();
+
+		for (SearchHit hit : hits) {
+
+			String sourceAsString = hit.getSourceAsString();
+
+			Account account = JSON.parseObject(sourceAsString, Account.class);
+			System.out.println("account = " + account);
+
+		}
+
+	}
+
 
 
 

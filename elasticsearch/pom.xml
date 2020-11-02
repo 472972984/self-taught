@@ -39,6 +39,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.56</version>
@@ -68,11 +75,11 @@
 		</dependency>
 
 		<!--封装 es-->
-		<!--		<dependency>
-                    <groupId>org.zxp</groupId>
-                    <artifactId>esclientrhl</artifactId>
-                    <version>7.0.0</version>
-                </dependency>-->
+		<dependency>
+			<groupId>org.zxp</groupId>
+			<artifactId>esclientrhl</artifactId>
+			<version>7.0.0</version>
+		</dependency>
 
 	</dependencies>
 
