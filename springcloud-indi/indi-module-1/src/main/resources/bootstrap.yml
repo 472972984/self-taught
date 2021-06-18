@@ -1,0 +1,45 @@
+server:
+  port: 8080
+spring:
+  application:
+    #指定的应用名称： 对应 nacos Data Id
+    name: springboot-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.103.110.199:31670
+      config:
+        server-addr: 47.103.110.199:31670
+        group: local
+        namespace: 8ed19181-8c92-4106-8c08-9ff13b175929
+        #指定配置文件类型
+        file-extension: yaml
+
+  datasource:
+    druid:
+      username: root
+      password: mz666
+      url: jdbc:mysql://39.106.121.52:3306/chq_test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    host: 101.132.96.141
+    port: 30759
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      column-underline: true
+      db-type: mysql
+    refresh: false
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  mapper-locations: classpath:mappers/*.xml
+
+
