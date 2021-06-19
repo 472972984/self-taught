@@ -5,7 +5,7 @@
     <select id="selectAll" resultType="indi.repo.springboot.entity.Student">
      SELECT
         *
-        from
+     from
      student
     </select>
 </mapper>
