@@ -1,5 +1,7 @@
 package indi.repo.springboot.controller;
 
+import indi.repo.springboot.context.HandleContext;
+import indi.repo.springboot.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.service.StudentService;
@@ -40,7 +42,7 @@ public class TestController {
 
     /**
      * 测试项目启动web访问
-      * @return
+     * @return
      */
     @GetMapping("/hello")
     public String test() {
@@ -81,5 +83,12 @@ public class TestController {
         throw new RuntimeException("异常信息");
     }
 
+    @GetMapping("/context")
+    public String context() {
+        HandleContext context = LocalHandleContext.getHandleContext();
+        System.out.println(context.getTraceId());
+        System.out.println(context.getDate());
+        return "context";
+    }
 
 }
