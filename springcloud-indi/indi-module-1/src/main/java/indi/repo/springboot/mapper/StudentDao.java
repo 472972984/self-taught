@@ -3,6 +3,8 @@ package indi.repo.springboot.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import indi.repo.springboot.entity.Student;
 
+import java.util.List;
+
 /**
  * 功能说明:
  *
@@ -10,6 +12,8 @@ import indi.repo.springboot.entity.Student;
  * @date: 2021/6/18
  * @desc:
  */
-public interface StudentMapper extends BaseMapper<Student> {
+public interface StudentDao extends BaseMapper<Student> {
+
+    List<Student> selectAll();
 
 }
