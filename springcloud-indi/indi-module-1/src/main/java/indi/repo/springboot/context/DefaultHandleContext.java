@@ -18,6 +18,8 @@ public class DefaultHandleContext implements HandleContext {
 
     private String optDate;
 
+    private String userId;
+
     @Override
     public String getTraceId() {
         return this.traceId;
@@ -26,5 +28,10 @@ public class DefaultHandleContext implements HandleContext {
     @Override
     public String getDate() {
         return this.optDate;
+    }
+
+    @Override
+    public String getUserId() {
+        return this.userId;
     }
 }

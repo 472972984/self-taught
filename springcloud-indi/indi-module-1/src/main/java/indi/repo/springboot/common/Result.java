@@ -37,7 +37,6 @@ public class Result<T> implements Serializable {
         this.success = success;
     }
 
-
     public static <T> Result<T> ok(Integer code, String message, T data) {
         return new Result(data, code, message, true);
     }

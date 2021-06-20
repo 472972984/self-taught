@@ -48,6 +48,7 @@ public class HandleContextInterceptor extends HandlerInterceptorAdapter implemen
 
     /**
      * TODO: 模拟 解析请求
+     *
      * @param request
      * @param response
      * @return
@@ -57,6 +58,10 @@ public class HandleContextInterceptor extends HandlerInterceptorAdapter implemen
         DefaultHandleContext handleContext = new DefaultHandleContext();
         handleContext.setTraceId(traceId);
         handleContext.setOptDate(new Date().toString());
+
+        //TODO: 模拟用户id
+        String userId = request.getParameter("user");
+        handleContext.setUserId(Objects.nonNull(userId) ? userId : null);
         return handleContext;
     }
 }

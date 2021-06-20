@@ -23,4 +23,9 @@ public interface HandleContext extends Cloneable, Serializable {
      */
     String getDate();
 
+    /**
+     * 当前用户id
+     * @return
+     */
+    String getUserId();
 }

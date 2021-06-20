@@ -27,7 +27,6 @@ public class WebFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         long start = System.currentTimeMillis();
         String traceId = StringUtils.remove(UUID.randomUUID().toString(), "-");
-        log.info("Current traceId is {}.", traceId);
         MDC.put(ApplicationConstant.MDC_TRACE, traceId);
         try {
             //转换成代理类

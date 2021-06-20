@@ -2,6 +2,7 @@ package indi.repo.springboot.webconfig;
 
 import indi.repo.springboot.filter.WebFilter;
 import indi.repo.springboot.interception.HandleContextInterceptor;
+import indi.repo.springboot.interception.repeat.SimpleRepeatInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HandleContextInterceptor());
+        registry.addInterceptor(new SimpleRepeatInterceptor());
     }
 
     @Bean

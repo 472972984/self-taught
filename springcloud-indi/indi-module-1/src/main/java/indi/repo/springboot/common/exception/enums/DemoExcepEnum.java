@@ -7,7 +7,8 @@ public enum DemoExcepEnum implements ExceptionEnumMessage {
     /**
      * 错误枚举值
      */
-    ERROR_TEST(10001, "测试错误枚举值");
+    ERROR_TEST(10001, "测试错误枚举值"),
+    REPEAT_SUBMIT(10002, "请勿重复提交信息");
 
     /**
      * 错误枚举值
