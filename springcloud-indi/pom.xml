@@ -47,6 +47,7 @@
                 <scope>import</scope>
             </dependency>
 
+            <!--redis中间件-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -80,6 +81,7 @@
                 </exclusions>
             </dependency>
 
+            <!--nacos-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -113,6 +115,7 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!--mysql驱动-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>

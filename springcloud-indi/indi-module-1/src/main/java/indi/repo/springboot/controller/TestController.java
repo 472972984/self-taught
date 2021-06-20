@@ -1,5 +1,8 @@
 package indi.repo.springboot.controller;
 
+import indi.repo.springboot.common.Result;
+import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
 import indi.repo.springboot.context.HandleContext;
 import indi.repo.springboot.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
@@ -67,10 +70,9 @@ public class TestController {
      * @return
      */
     @GetMapping("/student/getAll")
-    public String test22() {
+    public Result<List<Student>> test22() {
         List<Student> students = studentDao.selectAll();
-        System.out.println("students = " + students);
-        return "12345";
+        return Result.ok(students);
     }
 
     /**
@@ -82,6 +84,16 @@ public class TestController {
 
         throw new RuntimeException("异常信息");
     }
+
+    /**
+     * 全局异常捕获
+     * @return
+     */
+    @GetMapping("/throwException2")
+    public String exception2() {
+        throw new BaseException(DemoExcepEnum.ERROR_TEST);
+    }
+
 
     @GetMapping("/context")
     public String context() {
