@@ -22,16 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
-
     @RequestMapping("/importData")
-    public Result testImportData(){
-
-
+    public Result testImportData() {
 
 
         return Result.ok();
     }
-
 
 
 }

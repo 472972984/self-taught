@@ -3,13 +3,16 @@
  */
 package com.self.elasticsearch.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
+@TableName("account")
 public class Account {
 
+    private int id;
     private int account_number;
     private int balance;
     private String firstname;

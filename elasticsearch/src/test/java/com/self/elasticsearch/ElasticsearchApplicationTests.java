@@ -1,7 +1,10 @@
 package com.self.elasticsearch;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.self.elasticsearch.dao.AccountDao;
 import com.self.elasticsearch.model.Account;
+import com.self.elasticsearch.service.AccountService;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -16,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class ElasticsearchApplicationTests {
@@ -101,11 +106,13 @@ public class ElasticsearchApplicationTests {
 	}*/
 
 
+	@Autowired
+	private AccountService accountService;
 
 	@Test
 	public void contextLoads() {
 
-		System.out.println("client = " + client);
+
 
 	}
 
@@ -165,13 +172,15 @@ public class ElasticsearchApplicationTests {
 
 		SearchRequest searchRequest = new SearchRequest();
 
-		searchRequest.indices("account");
+		searchRequest.indices("bank");
 
 		SearchSourceBuilder builder = new SearchSourceBuilder();
 
-		MatchQueryBuilder builder1 = QueryBuilders.matchQuery("age", "28");
+//		MatchQueryBuilder builder1 = QueryBuilders.matchQuery("age", "28");
 
-		builder.query(builder1);
+//		builder.query(builder1);
+
+		builder.from(0).size(1000);
 
 		System.out.println("builder = " + builder);
 
@@ -184,14 +193,18 @@ public class ElasticsearchApplicationTests {
 
 		SearchHit[] hits = search.getHits().getHits();
 
+		List<Account> accountList = new ArrayList<>(1200);
+
 		for (SearchHit hit : hits) {
-
 			String sourceAsString = hit.getSourceAsString();
-
 			Account account = JSON.parseObject(sourceAsString, Account.class);
-			System.out.println("account = " + account);
-
+			account.setId(Integer.parseInt(hit.getId()));
+			accountList.add(account);
 		}
+
+		accountService.saveBatch(accountList);
+
+
 
 	}
 
