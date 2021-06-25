@@ -2,18 +2,22 @@ package com.self.elasticsearch;
 
 import com.alibaba.fastjson.JSON;
 import com.self.elasticsearch.model.Account;
+import com.self.elasticsearch.model.Article;
 import com.self.elasticsearch.service.AccountService;
+import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.AvgAggregationBuilder;
 import org.elasticsearch.search.aggregations.support.ValueType;
@@ -26,10 +30,14 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Slf4j
 public class ElasticsearchApplicationTests {
 
     @Autowired
@@ -221,12 +229,18 @@ public class ElasticsearchApplicationTests {
     public static SearchRequest searchRequest = null;
     public static SearchSourceBuilder builder = null;
 
-    @BeforeAll
+//    @BeforeAll
     public static void before() {
         searchRequest = new SearchRequest();
         searchRequest.indices("bank");
         builder = new SearchSourceBuilder();
     }
+
+//    @AfterAll
+    public void after() {
+        exec();
+    }
+
 
     @Test
     public void test4() {
@@ -286,12 +300,12 @@ public class ElasticsearchApplicationTests {
         builder.aggregation(aggregationBuilder);
     }
 
+    @Test
+    public void test10() {
 
-
-    @AfterAll
-    public void after() {
-        exec();
     }
+
+
 
 
     public  void exec() {
@@ -311,6 +325,72 @@ public class ElasticsearchApplicationTests {
         }
         printResult(search);
     }
+
+
+    /**
+     * 上传txt文件类型文档
+     */
+    @Test
+    public void uploadTxtFile() throws Exception{
+
+        File file = new File("C:\\Users\\Thompson\\Desktop\\es\\AppletTicketTypeController.java");
+
+        StringBuffer result = new StringBuffer();
+
+        //1、读取文件内容
+        try (FileInputStream in = new FileInputStream(file)) {
+            Long filelength = file.length();
+            byte[] filecontent = new byte[filelength.intValue()];
+            in.read(filecontent);
+            result.append(new String(filecontent, "utf8"));
+        } catch (FileNotFoundException e) {
+            log.error("{}", e.getLocalizedMessage());
+        } catch (IOException e) {
+            log.error("{}", e.getLocalizedMessage());
+        }
+
+        String text = result.toString();
+
+
+        IndexRequest indexRequest = new IndexRequest("article");
+
+        indexRequest.id("2"); //数据id
+
+        Article article = new Article();
+        article.setAuthor("ChenHQ");
+        article.setContent(text);
+        article.setId(2);
+        article.setTitle("java文件");
+        article.setFileFingerprint("2");
+        article.setPath("C:\\Users\\Thompson\\Desktop\\es\\AppletTicketTypeController.java");
+
+        String jsonString = JSON.toJSONString(article);
+
+        indexRequest.source(jsonString, XContentType.JSON);
+
+        IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
+
+        System.out.println(response);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
