@@ -8,11 +8,15 @@ import indi.repo.springboot.context.HandleContext;
 import indi.repo.springboot.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.mapper.StudentDao;
+import indi.repo.springboot.module.StudentDTO;
 import indi.repo.springboot.service.StudentService;
+import indi.repo.springboot.utils.HibernateValidatorUtils;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -106,6 +110,29 @@ public class TestController {
     public Result<String> repeat(@RequestBody Student student) {
         System.out.println("student = " + student);
         return Result.ok();
+    }
+
+    @GetMapping("/testAsync")
+    public String testAsync() {
+        HandleContext context = LocalHandleContext.getHandleContext();
+        System.out.println(context.getTraceId());
+        System.out.println(context.getDate());
+        studentService.testAsync(context.getUserId(),context.getTraceId());
+        return "context";
+    }
+
+    @GetMapping("/testValid")
+    public String testValid(@Validated StudentDTO studentDTO) {
+        System.out.println("studentDTO = " + studentDTO);
+        return "context";
+    }
+
+    @PostMapping("/testValidList")
+    public String testValidList(@RequestBody @Validated List<StudentDTO> studentDTOS) {
+        System.out.println("studentDTOS = " + studentDTOS);
+
+        studentDTOS.forEach(HibernateValidatorUtils::fastFailValidate);
+        return "context";
     }
 
 }

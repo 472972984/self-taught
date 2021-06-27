@@ -14,4 +14,5 @@ public interface StudentService extends IService<Student> {
 
     Student queryStudent(Long id);
 
+    void testAsync(String userId, String tranceId);
 }

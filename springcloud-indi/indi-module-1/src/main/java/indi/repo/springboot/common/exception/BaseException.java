@@ -9,6 +9,11 @@ import lombok.Data;
 @Data
 public class BaseException extends RuntimeException {
 
+    /**
+     * 参数校验失败
+     */
+    public static final Integer ERROR_PARAM_CODE = 100001;
+
     private final Integer errorCode;
 
     private final String errorMsg;
