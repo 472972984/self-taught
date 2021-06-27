@@ -8,6 +8,7 @@
     <modules>
         <module>indi-module-1</module>
         <module>indi-module-2</module>
+        <module>module-common</module>
     </modules>
 
     <groupId>org.example</groupId>
@@ -34,11 +35,18 @@
         <lombok.version>1.18.0</lombok.version>
         <mysql.version>8.0.22</mysql.version>
         <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
+        <module-common.version>1.0.0-SNAPSHOT</module-common.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>indi-repo</groupId>
+                <artifactId>module-common</artifactId>
+                <version>${module-common.version}</version>
+            </dependency>
 
             <!-- SpringBoot的依赖配置-->
             <dependency>

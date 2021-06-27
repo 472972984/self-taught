@@ -1,7 +1,7 @@
 package indi.repo.springboot.controller;
 
-import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.common.Result;
+import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.common.annotation.RepeatSubmit;
 import indi.repo.springboot.common.exception.BaseException;
 import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
