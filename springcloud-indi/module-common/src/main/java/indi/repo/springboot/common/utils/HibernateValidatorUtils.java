@@ -1,4 +1,4 @@
-package indi.repo.springboot.utils;
+package indi.repo.springboot.common.utils;
 
 import indi.repo.springboot.common.exception.BaseException;
 import org.hibernate.validator.HibernateValidator;
