@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>indi-module-1</module>
+        <module>indi-module-2</module>
     </modules>
 
     <groupId>org.example</groupId>

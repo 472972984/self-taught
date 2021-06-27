@@ -42,4 +42,11 @@ mybatis-plus:
     cache-enabled: false
   mapper-locations: classpath:mappers/*.xml
 
-
+#熔断器隔离策略： Hystrix官方强烈建议使用THREAD
+#THREAD以及SEMAPHORE，当隔离策略为 THREAD 时，是没办法拿到 ThreadLocal 中的值的。
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          strategy: Semaphore

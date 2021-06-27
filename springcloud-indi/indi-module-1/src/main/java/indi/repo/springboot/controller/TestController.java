@@ -1,5 +1,6 @@
 package indi.repo.springboot.controller;
 
+import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.common.Result;
 import indi.repo.springboot.common.annotation.RepeatSubmit;
 import indi.repo.springboot.common.exception.BaseException;
@@ -11,7 +12,6 @@ import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.module.StudentDTO;
 import indi.repo.springboot.service.StudentService;
 import indi.repo.springboot.utils.HibernateValidatorUtils;
-import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -44,6 +44,9 @@ public class TestController {
 
     @Autowired
     private StudentDao studentDao;
+
+    @Autowired
+    private TestApi testApi;
 
     /**
      * 测试项目启动web访问
@@ -132,6 +135,13 @@ public class TestController {
         System.out.println("studentDTOS = " + studentDTOS);
 
         studentDTOS.forEach(HibernateValidatorUtils::fastFailValidate);
+        return "context";
+    }
+
+    @GetMapping("/test/api")
+    public String testApi() {
+        String test = testApi.test();
+        System.out.println("test = " + test);
         return "context";
     }
 
