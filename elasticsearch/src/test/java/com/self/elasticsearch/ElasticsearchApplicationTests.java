@@ -4,7 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.self.elasticsearch.model.Account;
 import com.self.elasticsearch.model.Article;
 import com.self.elasticsearch.service.AccountService;
+import com.self.elasticsearch.utils.WordUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.model.PicturesTable;
+import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.ooxml.extractor.POIXMLTextExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -30,10 +38,9 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -375,10 +382,122 @@ public class ElasticsearchApplicationTests {
 
     }
 
+    /**
+     * 上传word文件类型文档
+     */
+    @Test
+    public void uploadWordFile() throws Exception{
+
+        File file = new File("C:\\Users\\Thompson\\Desktop\\es\\222.docx");
+
+        StringBuffer result = new StringBuffer();
+
+        //1、读取文件内容
+//        String s = WordUtil.readWORD("C:\\Users\\Thompson\\Desktop\\es\\222.docx");
+        String s = WordUtil.readWORD2007("C:\\Users\\Thompson\\Desktop\\es\\222.docx");
+        System.out.println("s = " + s);
 
 
+        String text = result.toString();
 
 
+       /* IndexRequest indexRequest = new IndexRequest("article");
+
+        indexRequest.id("3"); //数据id
+
+        Article article = new Article();
+        article.setAuthor("zhouKang");
+        article.setContent(text);
+        article.setId(3);
+        article.setTitle("word文件");
+        article.setFileFingerprint("3");
+        article.setPath("C:\\Users\\Thompson\\Desktop\\es\\111.doc");
+
+        String jsonString = JSON.toJSONString(article);
+
+        indexRequest.source(jsonString, XContentType.JSON);
+
+        IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
+
+        System.out.println(response);*/
+
+
+    }
+
+
+    @Test
+    public void testWord() {
+
+        String pathDoc = "C:\\Users\\Thompson\\Desktop\\es\\pic\\";
+        String path = "C:\\Users\\Thompson\\Desktop\\es\\1111.doc";
+
+        String content = null;
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            InputStream is = null;
+            HWPFDocument doc = null;
+            XWPFDocument docx = null;
+            POIXMLTextExtractor extractor = null;
+            try {
+                is = new FileInputStream(file);
+                if (path.endsWith(".doc")) {
+                    doc = new HWPFDocument(is);
+
+                    // 文档文本内容
+                    content = doc.getDocumentText();
+
+                    // 文档图片内容
+                    PicturesTable picturesTable = doc.getPicturesTable();
+                    List<Picture> pictures = picturesTable.getAllPictures();
+                    for (Picture picture : pictures) {
+                        // 输出图片到磁盘
+                        OutputStream out = new FileOutputStream(
+                                new File(pathDoc + UUID.randomUUID() + "." + picture.suggestFileExtension()));
+                        picture.writeImageContent(out);
+                        out.close();
+                    }
+                } else if (path.endsWith("docx")) {
+                    docx = new XWPFDocument(is);
+                    extractor = new XWPFWordExtractor(docx);
+
+                    // 文档文本内容
+                    content = extractor.getText();
+
+                    // 文档图片内容
+                    List<XWPFPictureData> pictures = docx.getAllPictures();
+                    for (XWPFPictureData picture : pictures) {
+                        byte[] bytev = picture.getData();
+                        // 输出图片到磁盘
+                        FileOutputStream out = new FileOutputStream(
+                                pathDoc + UUID.randomUUID() + picture.getFileName());
+                        out.write(bytev);
+                        out.close();
+                    }
+                } else {
+                    System.out.println("此文件不是word文件！");
+                }
+                System.out.println(content);
+            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
+            } finally {
+                try {
+                    if (doc != null) {
+                        doc.close();
+                    }
+                    if (extractor != null) {
+                        extractor.close();
+                    }
+                    if (docx != null) {
+                        docx.close();
+                    }
+                    if (is != null) {
+                        is.close();
+                    }
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
 
 
 
