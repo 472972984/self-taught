@@ -1,8 +1,8 @@
 package indi.repo.springboot.webconfig;
 
-import indi.repo.springboot.filter.WebFilter;
-import indi.repo.springboot.interception.HandleContextInterceptor;
-import indi.repo.springboot.interception.repeat.SimpleRepeatInterceptor;
+import indi.repo.springboot.core.filter.WebFilter;
+import indi.repo.springboot.core.interception.HandleContextInterceptor;
+import indi.repo.springboot.core.interception.repeat.SimpleRepeatInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
