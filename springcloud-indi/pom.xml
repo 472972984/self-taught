@@ -8,7 +8,6 @@
     <modules>
         <module>indi-module-1</module>
         <module>indi-module-2</module>
-        <module>module-common</module>
     </modules>
 
     <groupId>org.example</groupId>
@@ -35,18 +34,20 @@
         <lombok.version>1.18.0</lombok.version>
         <mysql.version>8.0.22</mysql.version>
         <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
-        <module-common.version>1.0.0-SNAPSHOT</module-common.version>
+        <mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
+        <easyexcel.version>2.2.3</easyexcel.version>
+        <idgenerator.version>1.0.6</idgenerator.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
 
-            <dependency>
+<!--            <dependency>
                 <groupId>indi-repo</groupId>
                 <artifactId>module-common</artifactId>
                 <version>${module-common.version}</version>
-            </dependency>
+            </dependency>-->
 
             <!-- SpringBoot的依赖配置-->
             <dependency>
@@ -69,6 +70,25 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
+            <!-- idgenerator -->
+            <dependency>
+                <groupId>com.github.yitter</groupId>
+                <artifactId>yitter-idgenerator</artifactId>
+                <version>${idgenerator.version}</version>
             </dependency>
 
             <dependency>

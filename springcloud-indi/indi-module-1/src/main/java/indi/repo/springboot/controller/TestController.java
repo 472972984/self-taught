@@ -1,17 +1,17 @@
 package indi.repo.springboot.controller;
 
 import indi.repo.springboot.common.Result;
-import indi.repo.springboot.common.utils.HibernateValidatorUtils;
+import indi.repo.springboot.exception.BaseException;
+import indi.repo.springboot.exception.enums.DemoExcepEnum;
 import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.common.annotation.RepeatSubmit;
-import indi.repo.springboot.common.exception.BaseException;
-import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
 import indi.repo.springboot.context.HandleContext;
 import indi.repo.springboot.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.mapper.StudentDao;
-import indi.repo.springboot.module.StudentDTO;
+import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
+import indi.repo.springboot.utils.HibernateValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

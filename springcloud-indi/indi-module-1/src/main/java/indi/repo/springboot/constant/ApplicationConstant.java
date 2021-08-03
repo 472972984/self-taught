@@ -1,4 +1,4 @@
-package indi.repo.springboot.common.constant;
+package indi.repo.springboot.constant;
 
 /**
  * 功能说明:
@@ -11,4 +11,7 @@ public class ApplicationConstant {
 
     public static final String MDC_TRACE = "trace";
 
+    public static final String GBK = "GBK";
+
+    public static final String UTF8 = "UTF-8";
 }

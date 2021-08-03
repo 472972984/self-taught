@@ -1,4 +1,4 @@
-package indi.repo.springboot.module;
+package indi.repo.springboot.module.dto;
 
 import lombok.Data;
 

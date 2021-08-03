@@ -1,6 +1,6 @@
-package indi.repo.springboot.common.exception.enums;
+package indi.repo.springboot.exception.enums;
 
-import indi.repo.springboot.common.exception.ExceptionEnumMessage;
+import indi.repo.springboot.exception.ExceptionEnumMessage;
 
 public enum DemoExcepEnum implements ExceptionEnumMessage {
 

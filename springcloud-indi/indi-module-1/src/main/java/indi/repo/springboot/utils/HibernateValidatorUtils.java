@@ -1,19 +1,24 @@
-package indi.repo.springboot.common.utils;
+package indi.repo.springboot.utils;
 
-import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.springboot.exception.BaseException;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
+import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Objects;
 import java.util.Set;
 
-import static indi.repo.springboot.common.exception.BaseException.ERROR_PARAM_CODE;
+import static indi.repo.springboot.exception.BaseException.ERROR_PARAM_CODE;
+
 
 /**
  * @author ChenHQ
  * @date: create in 2021/6/27
  */
+@Slf4j
 public class HibernateValidatorUtils {
 
     /**
@@ -61,6 +66,5 @@ public class HibernateValidatorUtils {
             throw new BaseException(ERROR_PARAM_CODE, errorMsgs.toString());
         }
     }
-
 
 }

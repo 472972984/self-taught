@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Objects;
 
-import static indi.repo.springboot.common.constant.ApplicationConstant.*;
+import static indi.repo.springboot.constant.ApplicationConstant.MDC_TRACE;
+
 
 /**
  * 功能说明:
@@ -63,5 +64,21 @@ public class HandleContextInterceptor extends HandlerInterceptorAdapter implemen
         String userId = request.getParameter("user");
         handleContext.setUserId(Objects.nonNull(userId) ? userId : null);
         return handleContext;
+    }
+
+    /**
+     * 移除上下文信息
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+        super.afterCompletion(request, response, handler, ex);
+        LocalHandleContext.removeHandleContext();
     }
 }

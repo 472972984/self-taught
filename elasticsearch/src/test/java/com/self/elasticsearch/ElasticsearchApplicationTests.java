@@ -39,6 +39,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -197,7 +200,7 @@ public class ElasticsearchApplicationTests {
 
         SearchSourceBuilder builder = new SearchSourceBuilder();
 
-//		MatchQueryBuilder builder1 = QueryBuilders.matchQuery("age", "28");
+//		T builder1 = QueryBuilders.matchQuery("age", "28");
 
 //		builder.query(builder1);
 
@@ -420,6 +423,47 @@ public class ElasticsearchApplicationTests {
         IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
 
         System.out.println(response);*/
+
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        InputStream in = null;
+        byte[] data = null;
+
+
+
+        URL url = new URL("https://huitailang-hello.oss-cn-beijing.aliyuncs.com/testchen.txt");
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+            String file = url.getFile();
+            //conn.getContentLength() 获取到读取的数据流大小
+            log.info("文件名={},文件长度={}",file,conn.getContentLength());
+
+            in = conn.getInputStream();
+
+            //2、建立数据通道
+            BufferedInputStream inputStream = new BufferedInputStream(in);
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File("C:\\Users\\Thompson\\Desktop\\es\\123.txt")));
+            byte[] buf = new byte[2048];
+            int length = 0;
+            //循环读取文件内容，输入流中将最多buf.length个字节的数据读入一个buf数组中,返回类型是读取到的字节数。
+            //当文件读取到结尾时返回 -1,循环结束。
+            while((length = inputStream.read(buf)) != -1){
+                System.out.print(new String(buf,0,length));
+                outputStream.write(buf,0,length);
+            }
+
+
+
+            outputStream.close();
+            inputStream.close();
+            in.close();
+            conn.disconnect();
+        }
 
 
     }

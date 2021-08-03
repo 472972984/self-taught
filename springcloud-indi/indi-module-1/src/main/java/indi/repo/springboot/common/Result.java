@@ -1,6 +1,6 @@
 package indi.repo.springboot.common;
 
-import indi.repo.springboot.common.constant.ApplicationConstant;
+import indi.repo.springboot.constant.ApplicationConstant;
 import lombok.Data;
 import org.slf4j.MDC;
 
@@ -19,14 +19,32 @@ public class Result<T> implements Serializable {
     //接口异常code
     private static final Integer HTTP_ERROR = 400;
 
+    /**
+     * 请求流水号
+     * @mock 16bbcf9042334a478ff868aaccb935a0
+     */
     private String traceId;
 
+    /**
+     * 接口成功与否
+     * @mock true
+     */
     private Boolean success;
 
+    /**
+     * code码
+     * @mock 200
+     */
     private Integer code;
 
+    /**
+     * 返回信息
+     */
     private String message;
 
+    /**
+     * 返回对象
+     */
     private T data;
 
     private Result(T data, Integer code, String message, Boolean success) {
@@ -68,3 +86,4 @@ public class Result<T> implements Serializable {
     }
 
 }
+

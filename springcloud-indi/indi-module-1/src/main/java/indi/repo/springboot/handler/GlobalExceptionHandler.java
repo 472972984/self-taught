@@ -1,8 +1,8 @@
-package indi.repo.springboot.common.handler;
+package indi.repo.springboot.handler;
 
 import indi.repo.springboot.common.Result;
-import indi.repo.springboot.common.constant.ApplicationConstant;
-import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.validation.BindException;

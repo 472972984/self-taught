@@ -1,4 +1,4 @@
-package indi.repo.springboot.common.exception;
+package indi.repo.springboot.exception;
 
 /**
  * @author ChenHQ

@@ -1,8 +1,7 @@
 package indi.repo.springboot.interception;
 
 import indi.repo.springboot.common.annotation.RepeatSubmit;
-import indi.repo.springboot.common.exception.BaseException;
-import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
+import indi.repo.springboot.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.HandlerMethod;
@@ -11,6 +10,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
+
+import static indi.repo.springboot.exception.enums.DemoExcepEnum.REPEAT_SUBMIT;
+
 
 /**
  * @author ChenHQ
@@ -49,10 +51,10 @@ public abstract class RepeatSubmitInterceptor extends HandlerInterceptorAdapter 
             HandlerMethod method = (HandlerMethod) handler;
             RepeatSubmit methodAnnotation = method.getMethodAnnotation(RepeatSubmit.class);
 
-            if ((namePost.equalsIgnoreCase(methodReq) || namePut.equalsIgnoreCase(methodReq))
-                    && Objects.nonNull(methodAnnotation)) {
+            boolean flag = namePost.equalsIgnoreCase(methodReq) || namePut.equalsIgnoreCase(methodReq);
+            if (flag && Objects.nonNull(methodAnnotation)) {
                 if (isRepeatSubmit(request)) {
-                    throw new BaseException(DemoExcepEnum.REPEAT_SUBMIT);
+                    throw new BaseException(REPEAT_SUBMIT);
                 }
             } else {
                 return true;

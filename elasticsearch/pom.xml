@@ -81,11 +81,11 @@
 		</dependency>
 
 		<!--封装 es-->
-<!--		<dependency>
+		<dependency>
 			<groupId>org.zxp</groupId>
 			<artifactId>esclientrhl</artifactId>
 			<version>7.7.0</version>
-		</dependency>-->
+		</dependency>
 <!--
 		<dependency>
 			<groupId>io.searchbox</groupId>
