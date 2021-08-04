@@ -37,7 +37,7 @@ public class ControllerLoggerAspect {
 
         String param = Arrays.toString(point.getArgs());
         String requestUrl = request.getRequestURI();
-        log.info("Request url:{}, Request arguments:{}", requestUrl, param);
+        log.info("Request url:{}, Request arguments: --> {}", requestUrl, param);
     }
 
     @AfterReturning(pointcut = "controllerPoint()", returning = "obj")
@@ -46,7 +46,7 @@ public class ControllerLoggerAspect {
         if (null == obj) {
             log.info("Response result is : null");
         } else {
-            log.info("Response result is  : {}", obj.toString());
+            log.info("Response result is: <-- {}", obj.toString());
         }
     }
 

@@ -1,4 +1,4 @@
-package indi.repo.springboot.constant;
+package indi.repo.springboot.common.constant;
 
 /**
  * 功能说明:

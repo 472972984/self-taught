@@ -1,6 +1,6 @@
 package indi.repo.springboot.core.filter;
 
-import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.common.constant.ApplicationConstant;
 import indi.repo.springboot.core.interception.CustomRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

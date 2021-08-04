@@ -1,7 +1,7 @@
 package indi.repo.springboot.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.common.constant.ApplicationConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

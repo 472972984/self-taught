@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Objects;
 
-import static indi.repo.springboot.constant.ApplicationConstant.MDC_TRACE;
+import static indi.repo.springboot.common.constant.ApplicationConstant.MDC_TRACE;
 
 
 /**

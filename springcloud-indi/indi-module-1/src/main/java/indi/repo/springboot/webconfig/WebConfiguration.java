@@ -31,11 +31,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean(){
+    public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean<WebFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setName("WebFilter");
         filterRegistrationBean.setFilter(new WebFilter());
-        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 10);
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
     }

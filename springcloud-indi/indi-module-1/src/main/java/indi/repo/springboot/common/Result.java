@@ -1,6 +1,6 @@
 package indi.repo.springboot.common;
 
-import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.common.constant.ApplicationConstant;
 import lombok.Data;
 import org.slf4j.MDC;
 

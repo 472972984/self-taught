@@ -1,7 +1,7 @@
 package indi.repo.springboot.common.handler;
 
 import indi.repo.springboot.common.Result;
-import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.common.constant.ApplicationConstant;
 import indi.repo.springboot.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

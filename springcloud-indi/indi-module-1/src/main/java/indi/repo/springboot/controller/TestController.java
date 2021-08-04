@@ -1,5 +1,7 @@
 package indi.repo.springboot.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import indi.repo.springboot.common.Result;
 import indi.repo.springboot.common.exception.BaseException;
 import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
@@ -18,7 +20,10 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -50,6 +55,7 @@ public class TestController {
 
     /**
      * 测试项目启动web访问
+     *
      * @return
      */
     @GetMapping("/hello")
@@ -60,6 +66,7 @@ public class TestController {
 
     /**
      * 整合mybatis-plus 测试访问
+     *
      * @param id
      * @return
      */
@@ -72,6 +79,7 @@ public class TestController {
 
     /**
      * 整合mybatis-plus 测试访问
+     *
      * @return
      */
     @GetMapping("/student/getAll")
@@ -82,6 +90,7 @@ public class TestController {
 
     /**
      * 全局异常捕获
+     *
      * @return
      */
     @GetMapping("/throwException")
@@ -92,6 +101,7 @@ public class TestController {
 
     /**
      * 全局异常捕获
+     *
      * @return
      */
     @GetMapping("/throwException2")
@@ -120,7 +130,7 @@ public class TestController {
         HandleContext context = LocalHandleContext.getHandleContext();
         System.out.println(context.getTraceId());
         System.out.println(context.getDate());
-        studentService.testAsync(context.getUserId(),context.getTraceId());
+        studentService.testAsync(context.getUserId(), context.getTraceId());
         return "context";
     }
 
@@ -144,5 +154,22 @@ public class TestController {
         System.out.println("test = " + test);
         return "context";
     }
+
+    @PostMapping("/upload")
+    public void upload(MultipartFile studentExcel) {
+//        EasyExcel.
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        File file = new File("C:\\Users\\Thompson\\Desktop\\导入Excel.xlsx");
+        List<StudentDTO> studentList = EasyExcel.read(file, StudentDTO.class, null).sheet().head(StudentDTO.class).doReadSync();
+        System.out.println(studentList);
+
+        List<StudentDTO> objects = EasyExcel.read(new FileInputStream(file)).sheet(0).head(StudentDTO.class).doReadSync();
+        System.out.println();
+
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package indi.repo.springboot.common.utils;
 
-import indi.repo.springboot.constant.ApplicationConstant;
+import indi.repo.springboot.common.constant.ApplicationConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.net.ssl.*;
