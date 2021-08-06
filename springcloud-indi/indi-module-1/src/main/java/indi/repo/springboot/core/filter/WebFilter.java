@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -25,6 +27,11 @@ import java.util.UUID;
 @Slf4j
 public class WebFilter extends OncePerRequestFilter {
 
+    /**
+     * 上传文件请求
+     */
+    private static final String MULTIPART_REQUEST = "multipart/";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         long start = System.currentTimeMillis();
@@ -33,7 +40,10 @@ public class WebFilter extends OncePerRequestFilter {
         try {
             //转换成代理类
             ServletRequest requestWrapper = null;
-            if(request instanceof HttpServletRequest) {
+
+            if (StringUtils.startsWithIgnoreCase(request.getContentType(), MULTIPART_REQUEST)) {
+                requestWrapper = new StandardMultipartHttpServletRequest(request);
+            } else if (request instanceof HttpServletRequest) {
                 requestWrapper = new CustomRequestWrapper((HttpServletRequest) request);
             }
             filterChain.doFilter(requestWrapper, response);

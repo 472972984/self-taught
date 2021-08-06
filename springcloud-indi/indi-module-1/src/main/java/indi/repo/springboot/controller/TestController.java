@@ -65,6 +65,19 @@ public class TestController {
     }
 
     /**
+     * 测试上传文件
+     * @param file
+     * @param name
+     * @return
+     */
+    @PostMapping("/file")
+    public String testFile(MultipartFile file, String name) {
+        System.out.println("name = " + name);
+        return name;
+    }
+
+
+    /**
      * 整合mybatis-plus 测试访问
      *
      * @param id
