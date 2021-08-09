@@ -17,6 +17,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>

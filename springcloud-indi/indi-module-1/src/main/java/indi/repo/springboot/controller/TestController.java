@@ -2,7 +2,10 @@ package indi.repo.springboot.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.google.common.collect.Lists;
 import indi.repo.springboot.common.Result;
+import indi.repo.springboot.common.cache.MemoryCache;
 import indi.repo.springboot.common.exception.BaseException;
 import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
 import indi.repo.springboot.feign.api.TestApi;
@@ -14,6 +17,7 @@ import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
 import indi.repo.springboot.common.utils.HibernateValidatorUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -36,6 +40,7 @@ import java.util.List;
 @RestController
 @RequestMapping("test")
 @RefreshScope
+@Slf4j
 public class TestController {
 
     @Value("${swagger2.enable:false}")
@@ -97,8 +102,10 @@ public class TestController {
      */
     @GetMapping("/student/getAll")
     public Result<List<Student>> test22() {
-        List<Student> students = studentDao.selectAll();
-        return Result.ok(students);
+        return Result.ok((List<Student>) MemoryCache.getCache("studentAll", Lists.newArrayList(), o -> {
+            log.info("hit from db");
+            return studentDao.selectAll();
+        }));
     }
 
     /**

@@ -37,6 +37,7 @@
         <mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
         <easyexcel.version>2.2.3</easyexcel.version>
         <idgenerator.version>1.0.6</idgenerator.version>
+        <caffeine.version>2.6.2</caffeine.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -157,6 +158,13 @@
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate.validator.version}</version>
+            </dependency>
+
+            <!--缓存-->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
 
         </dependencies>
