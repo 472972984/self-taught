@@ -8,4 +8,13 @@
      from
      student
     </select>
+
+    <insert id="insertBatchTest" parameterType="list">
+        insert into student (username,sex) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{item.sex})
+        </foreach>
+    </insert>
+
+
 </mapper>

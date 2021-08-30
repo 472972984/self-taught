@@ -16,4 +16,6 @@ public interface StudentDao extends BaseMapper<Student> {
 
     List<Student> selectAll();
 
+    void insertBatchTest(List<Student> list);
+
 }
