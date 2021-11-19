@@ -4,7 +4,9 @@ import indi.repo.springboot.entity.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 功能说明: 流操作 集合或数组.stream().过滤().映射().终止操作
@@ -26,13 +28,13 @@ public class TestStream {
         students.add(new Student(6L,"gy","男"));
         students.add(new Student(7L,"hz","男"));
         students.add(new Student(8L,"dc","女"));
-        students.add(new Student(8L,"dc","女"));
+        students.add(new Student(8L,"dc2","女"));
 
     }
 
 
     public static void main(String[] args) {
-        test3();
+        maxId();
     }
 
     /**
@@ -67,6 +69,35 @@ public class TestStream {
      */
     public static void print(List<Student> students) {
         students.stream().forEach(System.out::println);
+    }
+
+    /**
+     * 流操作选择输出最大id
+     */
+    public static void maxId() {
+        long max = students.stream().mapToLong(Student::getId).reduce(Long::max).getAsLong();
+        System.out.println(max);
+        System.out.println(students.stream().anyMatch(student -> Objects.equals(max, student.getId())));
+
+        System.out.println(students.stream().count() == students.size());
+
+        List<Student> list = new ArrayList<>();
+        list.add(new Student(10L,"test","男"));
+
+        System.out.println(Stream.concat(list.stream(), students.stream()).count());
+
+        students.stream().filter(student -> Objects.equals(student.getId(), 8L)).forEach(System.out::println);
+
+        students.stream().limit(2).forEach(System.out::println);
+
+        students.stream().mapToLong(student -> student.getId()).forEach(System.out::println);
+
+        System.out.println(students.stream().collect(Collectors.averagingLong(Student::getId)));
+
+        System.out.println(students.stream().map(Student::getUsername).collect(Collectors.joining("-")));
+
+        System.out.println(students.stream().map(Student::getUsername).collect(Collectors.joining("-", "《", "》")));
+
     }
 
 }
