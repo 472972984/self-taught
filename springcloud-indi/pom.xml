@@ -38,6 +38,7 @@
         <easyexcel.version>2.2.3</easyexcel.version>
         <idgenerator.version>1.0.6</idgenerator.version>
         <caffeine.version>2.6.2</caffeine.version>
+        <xxl-job.version>2.3.0</xxl-job.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -165,6 +166,13 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+
+            <!--XXL 定时调度-->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
 
         </dependencies>

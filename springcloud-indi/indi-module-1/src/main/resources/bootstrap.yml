@@ -49,3 +49,22 @@ mybatis-plus:
 #      execution:
 #        isolation:
 #          strategy: Semaphore
+
+
+xxl:
+  job:
+    admin:
+      ### 调度中心部署地址：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"
+      addresses: http://10.80.73.167:8080/xxl-job-admin
+      ### 调度中心通讯TOKEN，非空时启用
+    accessToken:
+    executor:
+      ### 执行器"AppName"和地址信息配置
+      appname: xxl-job-xfj
+      address:
+      ip:
+      port: 1111
+      # 执行器运行日志文件存储的磁盘位置，需要对该路径拥有读写权限
+      logpath:
+      # 执行器Log文件定期清理功能，指定日志保存天数，日志文件过期自动删除。限制至少保持3天，否则功能不生效
+      logretentiondays: 30

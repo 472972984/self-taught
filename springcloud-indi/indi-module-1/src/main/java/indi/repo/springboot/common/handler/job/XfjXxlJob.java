@@ -1,4 +1,3 @@
-/*
 package indi.repo.springboot.common.handler.job;
 
 import com.xxl.job.core.context.XxlJobHelper;
@@ -14,7 +13,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-*/
 /**
  * XxlJob开发示例（Bean模式）
  *
@@ -25,17 +23,14 @@ import java.util.concurrent.TimeUnit;
  *      4、任务结果：默认任务结果为 "成功" 状态，不需要主动设置；如有诉求，比如设置任务结果为失败，可以通过 "XxlJobHelper.handleFail/handleSuccess" 自主设置任务结果；
  *
  * @author xuxueli 2019-12-11 21:52:51
- *//*
-
+ */
 @Component
 public class XfjXxlJob {
 
 
-    */
-/**
+    /**
      * 1、简单任务示例（Bean模式）
-     *//*
-
+     */
     @XxlJob("demoJobHandler")
     public void demoJobHandler(String s) throws Exception {
         XxlJobHelper.log("XXL-JOB, Hello World.");
@@ -50,11 +45,9 @@ public class XfjXxlJob {
     }
 
 
-    */
-/**
+    /**
      * 2、分片广播任务
-     *//*
-
+     */
     @XxlJob("shardingJobHandler")
     public void shardingJobHandler() throws Exception {
 
@@ -75,11 +68,9 @@ public class XfjXxlJob {
 
     }
 
-    */
-/**
+    /**
      * 3、命令行任务
-     *//*
-
+     */
     @XxlJob("commandJobHandler")
     public void commandJobHandler() throws Exception {
         String command = XxlJobHelper.getJobParam();
@@ -124,15 +115,13 @@ public class XfjXxlJob {
     }
 
 
-    */
-/**
+    /**
      * 4、跨平台Http任务
      *  参数示例：
      *      "url: http://www.baidu.com\n" +
      *      "method: get\n" +
      *      "data: content\n";
-     *//*
-
+     */
     @XxlJob("httpJobHandler")
     public void httpJobHandler() throws Exception {
 
@@ -244,11 +233,9 @@ public class XfjXxlJob {
 
     }
 
-    */
-/**
+    /**
      * 5、生命周期任务示例：任务初始化与销毁时，支持自定义相关逻辑；
-     *//*
-
+     */
     @XxlJob(value = "demoJobHandler2", init = "init", destroy = "destroy")
     public void demoJobHandler2() throws Exception {
         XxlJobHelper.log("XXL-JOB, Hello World.");
@@ -262,4 +249,3 @@ public class XfjXxlJob {
 
 
 }
-*/
