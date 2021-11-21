@@ -39,17 +39,19 @@
         <idgenerator.version>1.0.6</idgenerator.version>
         <caffeine.version>2.6.2</caffeine.version>
         <xxl-job.version>2.3.0</xxl-job.version>
+        <freemarker.version>2.3.28</freemarker.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
 
-<!--            <dependency>
-                <groupId>indi-repo</groupId>
-                <artifactId>module-common</artifactId>
-                <version>${module-common.version}</version>
-            </dependency>-->
+            <!--代码生成模板-->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
 
             <!-- SpringBoot的依赖配置-->
             <dependency>

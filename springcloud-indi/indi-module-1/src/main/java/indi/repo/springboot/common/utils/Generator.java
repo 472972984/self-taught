@@ -2,6 +2,7 @@ package indi.repo.springboot.common.utils;
 
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -15,11 +16,21 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Generator {
+
+    //TODO:项目名称
+    private static final String PROJECT_NAME = "/indi-module-1";
+
+    //TODO:表前缀
+    private static String tablePrefix = "";
+
     /**
      * <p>
      * 读取控制台内容
@@ -45,30 +56,33 @@ public class Generator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath =  System.getProperty("user.dir") ;
-        gc.setOutputDir(projectPath + "/goyoto-guide/src/main/java");
+        gc.setOutputDir(projectPath + PROJECT_NAME + "/src/main/java");
         gc.setAuthor("ChenHQ");
         gc.setOpen(false);
         gc.setFileOverride(true);//是否覆盖文件
         gc.setBaseResultMap(true); // xml resultmap
         gc.setBaseColumnList(true); // xml columlist
         gc.setSwagger2(false);  //实体属性 Swagger2 注解
+        gc.setEntityName("%sDo");
+        gc.setIdType(IdType.AUTO);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setDriverName("com.mysql.jdbc.Driver");
 
-        dsc.setUrl("jdbc:mysql://db.dev.tolvyo.com:3306/gyt_guide_my?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
-        dsc.setUsername("tolvyodev");
-        dsc.setPassword("tolvyodev123!@#");
+        //加载配置文件
+        Properties jdbcProperties = new Properties();
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties");
+        try {
+            jdbcProperties.load(is);
+        } catch (IOException e) {
+            throw new MybatisPlusException("load jdbc.properties error.");
+        }
 
-//        dsc.setUrl("jdbc:mysql://db.dev.tolvyo.com:3306/distribution_my?&characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
-//        dsc.setUsername("tolvyodev");
-//        dsc.setPassword("tolvyodev123!@#");
-
-//        dsc.setUrl("jdbc:mysql://39.106.121.52:3306/jxtg_pay1?&characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
-//        dsc.setUsername("root");
-//        dsc.setPassword("mz666");
+        dsc.setUrl(jdbcProperties.getProperty("mysql.url"));
+        dsc.setDriverName(jdbcProperties.getProperty("mysql.driver.name"));
+        dsc.setUsername(jdbcProperties.getProperty("mysql.username"));
+        dsc.setPassword(jdbcProperties.getProperty("mysql.password"));
 
         dsc.setTypeConvert(new MySqlTypeConvert(){
             // 自定义数据库表字段类型转换【可选】
@@ -95,7 +109,7 @@ public class Generator {
         pc.setEntity("entity" );
         pc.setService("service" );
         pc.setServiceImpl("service."+"impl");
-        pc.setMapper("dao");
+        pc.setMapper("mapper");
         pc.setXml("");
         mpg.setPackageInfo(pc);
 
@@ -117,7 +131,7 @@ public class Generator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/goyoto-guide/src/main/resources/mappers/" +
+                return projectPath + PROJECT_NAME + "/src/main/resources/mappers/" +
                           tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
@@ -140,7 +154,7 @@ public class Generator {
         // 写于父类中的公共字段
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix("g_");
+        strategy.setTablePrefix(tablePrefix);
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

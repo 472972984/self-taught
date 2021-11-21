@@ -95,6 +95,12 @@
             <artifactId>xxl-job-core</artifactId>
         </dependency>
 
+        <!--代码生成模板-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
