@@ -2,6 +2,7 @@ package indi.repo.springboot.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import indi.repo.springboot.entity.Student;
+import indi.repo.springboot.module.dto.StudentDTO;
 
 /**
  * 功能说明:
@@ -21,5 +22,7 @@ public interface StudentService extends IService<Student> {
     void batchInsertTest2();
 
     void batchInsertTest3();
+
+    void updateById(StudentDTO studentDTO);
 
 }

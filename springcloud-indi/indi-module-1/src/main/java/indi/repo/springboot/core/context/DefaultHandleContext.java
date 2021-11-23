@@ -20,6 +20,8 @@ public class DefaultHandleContext implements HandleContext {
 
     private String userId;
 
+    private String username;
+
     @Override
     public String getTraceId() {
         return this.traceId;
@@ -33,5 +35,10 @@ public class DefaultHandleContext implements HandleContext {
     @Override
     public String getUserId() {
         return this.userId;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 }

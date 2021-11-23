@@ -1,10 +1,15 @@
 package indi.repo.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
+import indi.repo.springboot.common.log.enums.OptTypeEnum;
+import indi.repo.springboot.common.utils.BeanUtils;
 import indi.repo.springboot.core.context.HandleContext;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.mapper.StudentDao;
+import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -12,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static indi.repo.springboot.common.exception.enums.DemoExcepEnum.RECORD_NOT_EXIST;
 
 /**
  * 功能说明:
@@ -95,5 +102,19 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
         studentDao.insertBatchTest(studentList);
         long end = System.currentTimeMillis();
         System.out.println("插入500条数据耗时：" + (end - start) + "毫秒");
+    }
+
+    @Override
+    @UpdateEntityLog(type = "学生管理", modifyClass = StudentDao.class, id = "#studentDTO.id", optType = OptTypeEnum.UPDATE)
+    public void updateById(StudentDTO studentDTO) {
+        Long studentId = studentDTO.getId();
+
+        Student student = studentDao.selectById(studentId);
+        if (null == student) {
+            throw new BaseException(RECORD_NOT_EXIST);
+        }
+
+        Student studentCurrent = BeanUtils.copyObject(studentDTO, Student.class);
+        studentDao.updateById(studentCurrent);
     }
 }

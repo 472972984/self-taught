@@ -1,22 +1,20 @@
 package indi.repo.springboot.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.EasyExcelFactory;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import indi.repo.springboot.common.Result;
+import indi.repo.springboot.common.annotation.RepeatSubmit;
 import indi.repo.springboot.common.cache.MemoryCache;
 import indi.repo.springboot.common.exception.BaseException;
 import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
-import indi.repo.springboot.feign.api.TestApi;
-import indi.repo.springboot.common.annotation.RepeatSubmit;
+import indi.repo.springboot.common.utils.HibernateValidatorUtils;
 import indi.repo.springboot.core.context.HandleContext;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
+import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
-import indi.repo.springboot.common.utils.HibernateValidatorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -180,16 +178,28 @@ public class TestController {
 //        EasyExcel.
     }
 
-
-    public static void main(String[] args) throws Exception {
+    @PostMapping("/read")
+    public void read() throws Exception {
         File file = new File("C:\\Users\\Thompson\\Desktop\\导入Excel.xlsx");
         List<StudentDTO> studentList = EasyExcel.read(file, StudentDTO.class, null).sheet().head(StudentDTO.class).doReadSync();
         System.out.println(studentList);
 
         List<StudentDTO> objects = EasyExcel.read(new FileInputStream(file)).sheet(0).head(StudentDTO.class).doReadSync();
         System.out.println();
+    }
+
+    public static void main(String[] args) throws Exception {
+
 
     }
+
+    @GetMapping("/test/aop")
+    public void testAop(){
+        studentService.updateById(StudentDTO.builder().id(1L).username("chen").sex("man").build());
+    }
+
+
+
 
 
 }

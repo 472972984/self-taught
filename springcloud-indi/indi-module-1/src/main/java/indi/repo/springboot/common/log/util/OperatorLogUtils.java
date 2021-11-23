@@ -4,8 +4,11 @@ import indi.repo.springboot.common.log.annotation.ImportantField;
 import indi.repo.springboot.common.log.compare.FieldBaseEquator;
 import indi.repo.springboot.common.log.compare.FieldInfo;
 import indi.repo.springboot.common.log.entity.ModifiedField;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -75,5 +78,50 @@ public class OperatorLogUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 状态、url
+     * 根据集合对象返回对应的字符串： 【状态】，【url】
+     *
+     * @param modifiedFields
+     * @return
+     */
+    public static String getModifiedFieldContent(List<ModifiedField> modifiedFields) {
+        String result = "";
+        if (CollectionUtils.isEmpty(modifiedFields)) {
+            return result;
+        } else {
+            for (ModifiedField modifiedField : modifiedFields) {
+                result = result + "【" + (StringUtils.isEmpty(modifiedField.getRemark()) ? modifiedField.getFieldName() : modifiedField.getRemark()) + "】,";
+            }
+            result = result.substring(0, result.length() - 1);
+            return result;
+        }
+    }
+
+    /**
+     * 返回集合数组：
+     * 【参数值】原值为“127.0.0.1”，现值为“127.0.0.2”。
+     * 【状态】，原值为“启用”，现值为“停用”。
+     *
+     * @param modifiedFields
+     * @return
+     */
+    public static List<String> getContentList(List<ModifiedField> modifiedFields) {
+
+        List<String> contentList = new ArrayList<>();
+
+        for (ModifiedField modifiedField : modifiedFields) {
+
+            //获取展开项
+            String content = "【" + (org.apache.commons.lang3.StringUtils.isEmpty(modifiedField.getRemark()) ? modifiedField.getFieldName() : modifiedField.getRemark())
+                    + "】原值为：" + "\"" + modifiedField.getOldValue() + "\"，"
+                    + "现值为：" + "\"" + modifiedField.getNewValue() + "\"";
+
+            contentList.add(content);
+        }
+
+        return contentList;
     }
 }
