@@ -6,10 +6,11 @@ import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.entity.ModifiedField;
 import indi.repo.springboot.common.log.spring.LogSpringExpression;
 import indi.repo.springboot.common.log.util.OperatorLogUtils;
+import indi.repo.springboot.common.manager.AsyncFactory;
+import indi.repo.springboot.common.manager.AsyncManager;
 import indi.repo.springboot.common.utils.SpringUtils;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.SystemLog;
-import indi.repo.springboot.mapper.SystemLogMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,12 +18,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author ChenHQ
@@ -32,9 +33,6 @@ import java.util.List;
 @Configuration
 @Slf4j
 public class UpdateEntityLogAop {
-
-    @Autowired
-    private SystemLogMapper systemLogMapper;
 
     private LogSpringExpression logSpringExpression = new LogSpringExpression();
 
@@ -50,6 +48,8 @@ public class UpdateEntityLogAop {
 
         Object result = null;
 
+        SystemLog systemLog = null;
+        Throwable t = null;
         try {
             try {
                 Object target = joinPoint.getTarget();
@@ -61,14 +61,11 @@ public class UpdateEntityLogAop {
                 Object mapperObj = SpringUtils.getBean(updateEntityLog.modifyClass());
                 Object preObj = ((BaseMapper) mapperObj).selectById(id);
 
-                //TODO: 要求被修改的对象必须在方法第一个参数位上
+                //要求被修改的对象必须在方法第一个参数位上
                 List<ModifiedField> modifiedFields = OperatorLogUtils.compareObject(args[0], preObj);
                 System.out.println("modifiedFields = " + modifiedFields);
-                //TODO：入库操作
-                final SystemLog systemLog = SystemLogInstance(modifiedFields,updateEntityLog,id);
-                //TODO: 异步入库
-                systemLogMapper.insert(systemLog);
-
+                //创建日志对象
+                systemLog = SystemLogInstance(modifiedFields,updateEntityLog,id);
             } catch (BeansException e) {
                 log.error("【记录修改日志异常：{}】",e.getMessage());
             }
@@ -93,10 +90,14 @@ public class UpdateEntityLogAop {
              */
 
         } catch (Throwable e) {
-            //TODO: 业务出现异常处理
+            //业务出现异常处理
+            t = e;
             throw e;
         }finally {
-            //TODO：是否需要处理
+            //异步入库
+            if (Objects.nonNull(systemLog) && Objects.isNull(t)) {
+                AsyncManager.getInstance().execute(AsyncFactory.insertXfjWxSyncException(systemLog));
+            }
         }
 
         return result;

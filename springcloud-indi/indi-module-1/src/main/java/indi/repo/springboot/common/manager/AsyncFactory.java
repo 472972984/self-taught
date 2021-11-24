@@ -1,7 +1,12 @@
 package indi.repo.springboot.common.manager;
 
 
+import indi.repo.springboot.common.utils.SpringUtils;
+import indi.repo.springboot.entity.SystemLog;
+import indi.repo.springboot.mapper.SystemLogMapper;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.TimerTask;
 
 /**
  * 功能说明:
@@ -15,21 +20,21 @@ public class AsyncFactory {
 
 
     /**
-     * 异步插入同步网新异常数据错误
-     * @param wxSyncExceptionDo
+     * 异步插入
+     * @param
      */
-/*    public static TimerTask insertXfjWxSyncException(final XfjWxSyncExceptionDo wxSyncExceptionDo) {
+    public static TimerTask insertXfjWxSyncException(final SystemLog systemLog) {
         return new TimerTask() {
             @Override
             public void run() {
                 try {
-                    SpringUtils.getBean(XfjWxSyncExceptionMapper.class).insert(wxSyncExceptionDo);
+                    SpringUtils.getBean(SystemLogMapper.class).insert(systemLog);
                 } catch (Exception e) {
-                    log.error("数据库索引约束异常 : {}", e.getMessage());
+                    log.error("数据库异常 : {}", e.getMessage());
                 }
             }
         };
-    }*/
+    }
 
 
 }
