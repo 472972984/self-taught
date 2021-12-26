@@ -8,6 +8,8 @@
     <modules>
         <module>indi-module-1</module>
         <module>indi-module-2</module>
+        <module>indi-open-api</module>
+        <module>indi-module-student</module>
     </modules>
 
     <groupId>org.example</groupId>
@@ -40,11 +42,18 @@
         <caffeine.version>2.6.2</caffeine.version>
         <xxl-job.version>2.3.0</xxl-job.version>
         <freemarker.version>2.3.28</freemarker.version>
+        <hutoool.version>5.7.9</hutoool.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutoool.version}</version>
+            </dependency>
 
             <!--代码生成模板-->
             <dependency>
