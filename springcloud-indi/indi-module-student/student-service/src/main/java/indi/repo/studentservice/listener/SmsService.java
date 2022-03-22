@@ -17,7 +17,7 @@ public class SmsService implements ApplicationListener<OrderSuccessEvent> {
     }
 
     public void sendSms(String phone, String code) {
-        System.out.println("发送手机号" + phone + "\t code:" + code);
+        System.out.println(Thread.currentThread().getName() + " 发送手机号" + phone + "\t code:" + code);
     }
 
 }

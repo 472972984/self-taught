@@ -28,7 +28,7 @@ public class StudentController {
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
         System.out.println("request = " + request);
-        System.out.println("我来了！！！");
+        System.out.println(Thread.currentThread().getName() + " 我来了！！！");
         applicationContext.publishEvent(new OrderSuccessEvent(this));
         return "chenhuiqi";
     }
