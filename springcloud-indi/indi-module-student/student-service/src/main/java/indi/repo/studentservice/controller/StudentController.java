@@ -4,7 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import indi.repo.common.Result;
 import indi.repo.module.StudentQueryDTO;
 import indi.repo.module.StudentVO;
+import indi.repo.studentservice.listener.OrderSuccessEvent;
 import indi.repo.studentservice.module.StudentDO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,10 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class StudentController {
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
         System.out.println("request = " + request);
         System.out.println("我来了！！！");
+        applicationContext.publishEvent(new OrderSuccessEvent(this));
         return "chenhuiqi";
     }
 
