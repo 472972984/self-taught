@@ -7,6 +7,7 @@ import indi.repo.module.StudentVO;
 import indi.repo.studentservice.listener.OrderSuccessEvent;
 import indi.repo.studentservice.module.StudentDO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,12 @@ public class StudentController {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Value("${test.AAA}")
+    private String port;
+
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
+        System.out.println("port = " + port);
         System.out.println("request = " + request);
         System.out.println(Thread.currentThread().getName() + " 我来了！！！");
         applicationContext.publishEvent(new OrderSuccessEvent(this));

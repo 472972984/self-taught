@@ -21,7 +21,7 @@
         </dependency>
 
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <exclusions>
@@ -34,12 +34,12 @@
                     <groupId>com.alibaba.nacos</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <dependency>
@@ -72,5 +72,40 @@
 
     </dependencies>
 
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <app.env>dev</app.env>
+                <enable.heartbeat>false</enable.heartbeat>
+                <app.name>${project.build.finalName}</app.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <app.env>test</app.env>
+                <enable.heartbeat>false</enable.heartbeat>
+                <app.name>${project.build.finalName}</app.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <app.env>prod</app.env>
+                <enable.heartbeat>true</enable.heartbeat>
+                <app.name>${project.build.finalName}</app.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <app.env>uat</app.env>
+                <enable.heartbeat>true</enable.heartbeat>
+                <app.name>${project.build.finalName}</app.name>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

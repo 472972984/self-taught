@@ -15,9 +15,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date: 2021/6/18
  * @desc:
  */
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @EnableFeignClients
-@EnableAsync //开启异步调用
+@EnableAsync
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class StudentModuleApplication {
 
