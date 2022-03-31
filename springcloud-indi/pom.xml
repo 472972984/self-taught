@@ -43,11 +43,18 @@
         <xxl-job.version>2.3.0</xxl-job.version>
         <freemarker.version>2.3.28</freemarker.version>
         <hutoool.version>5.7.9</hutoool.version>
+        <rmq.version>2.1.0</rmq.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rmq.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>cn.hutool</groupId>

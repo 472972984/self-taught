@@ -6,6 +6,7 @@ import indi.repo.module.StudentQueryDTO;
 import indi.repo.module.StudentVO;
 import indi.repo.studentservice.listener.OrderSuccessEvent;
 import indi.repo.studentservice.module.StudentDO;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  * @author ChenHQ
@@ -28,6 +30,18 @@ public class StudentController {
 
     @Value("${test.AAA}")
     private String port;
+
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
+
+    public static final String TEST_TOPIC = "TEST_TOPIC";
+
+    @GetMapping("/sendTime")
+    public String sendTime() {
+        LocalDateTime now = LocalDateTime.now();
+        rocketMQTemplate.convertAndSend(TEST_TOPIC, now.toString());
+        return now.toString();
+    }
 
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
@@ -49,5 +63,8 @@ public class StudentController {
         StudentDO build = StudentDO.builder().id(1L).sex("男").username("陈汇奇").build();
         return Result.ok(BeanUtil.copyProperties(build,StudentVO.class));
     }
+
+
+
 
 }

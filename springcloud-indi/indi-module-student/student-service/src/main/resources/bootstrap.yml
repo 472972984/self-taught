@@ -18,5 +18,10 @@ spring:
 
 server:
   port: 8083
-  servlet:
-    context-path: /indi-student
+  #servlet:
+  #  context-path: /indi-student
+
+rocketmq:
+  name-server: 10.50.2.70:9876
+  producer:
+    group: myGroup
