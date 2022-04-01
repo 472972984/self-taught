@@ -1,13 +1,12 @@
 package indi.repo.openapi.constant;
 
 /**
- * 功能说明:
- *
- * @author: ChenHQ
- * @date 2021/12/16
- * @desc:
+ * @author ChenHQ
+ * @description: 开放api常量
+ * @date 2021/12/27 10:30
  */
 public class ApplicationConstant {
+
 
     /**
      * 请求唯一requestId
@@ -27,7 +26,7 @@ public class ApplicationConstant {
     /**
      * 请求头标识
      */
-    public static final String APP_KEY = "app_key";
+    public static final String APP_KEY = "app-key";
 
 
     /**
@@ -39,7 +38,7 @@ public class ApplicationConstant {
     /**
      * 请求头标识
      */
-    public static final String SIGN_METHOD = "sign_method";
+    public static final String SIGN_METHOD = "sign-method";
 
 
     /**
@@ -61,16 +60,31 @@ public class ApplicationConstant {
     /**
      * 请求头标识
      */
-    public static final String RANDOM_KEY = "random_key";
+    public static final String RANDOM_KEY = "random-key";
 
     /**
      * 请求头标识
      */
-    public static final String ENCRYPT_PARM = "encrypt_parm";
+    public static final String ENCRYPT_PARM = "encrypt-parm";
 
     /**
      * 格式化时间
      */
     public static final String DATE_YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * jsonParam
+     */
+    public static final String JSON_PARAM = "jsonParam";
+
+    /**
+     * 上下文计算值
+     */
+    public static final String THREAD_LOCAL_SIGN_PARAM = "computeSignature";
+
+    /**
+     * 上下文 secret
+     */
+    public static final String THREAD_LOCAL_SECRET = "THREAD_LOCAL_SECRET";
 
 }

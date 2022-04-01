@@ -65,7 +65,7 @@ public class HandleContextInterceptor extends HandlerInterceptorAdapter implemen
         //获取请求参数中 app_key
         String appKey = request.getHeader(ApplicationConstant.APP_KEY);
         if (StringUtils.isBlank(appKey)) {
-            throw new RuntimeException("请求头中未检测到【app_key】值");
+            throw new RuntimeException("请求头中未检测到【app-key】值");
         }
         handleContext.setAppKey(appKey);
 
@@ -79,7 +79,7 @@ public class HandleContextInterceptor extends HandlerInterceptorAdapter implemen
         //获取请求参数中 sign_method
         String signMethod = request.getHeader(ApplicationConstant.SIGN_METHOD);
         if (StringUtils.isBlank(signMethod)) {
-            throw new RuntimeException("请求头中未检测到【sign_method】值");
+            throw new RuntimeException("请求头中未检测到【sign-method】值");
         }
         handleContext.setSignMethod(signMethod);
 

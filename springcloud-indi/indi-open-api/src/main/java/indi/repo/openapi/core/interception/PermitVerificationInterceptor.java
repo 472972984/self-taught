@@ -10,6 +10,7 @@ import indi.repo.openapi.util.SignEncodeUtils;
 import indi.repo.openapi.verification.CheckAppKeyPermit;
 import indi.repo.openapi.constant.ApplicationConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static indi.repo.openapi.constant.ApplicationConstant.THREAD_LOCAL_SIGN_PARAM;
 
 /**
  * @author ChenHQ
@@ -44,15 +47,10 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
     }
 
     /**
-     * TODO: 接口api调用许可认证
-     * @param request
-     * @param response
-     * @param handler
-     * @return
-     * @throws Exception
+     * 接口api调用许可认证
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //获取上下文信息
         HandleContext handleContext = LocalHandleContext.getHandleContext();
 
@@ -68,7 +66,7 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
         CheckAppKeyPermit checkAppKeyPermit = SpringUtil.getBean(CheckAppKeyPermit.class);
         String appKey = handleContext.getAppKey();
         boolean flag = checkAppKeyPermit.checkPermit(appKey);
-        if(!flag) {
+        if (!flag) {
             throw new RuntimeException("app_key无效");
         }
 
@@ -78,20 +76,31 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
         String signServer = SignEncodeUtils.signTopRequest(paramsMap, handleContext.getSecret(), handleContext.getSignMethod());
 
         //服务端计算sign值和上送的sign值做一致性校验
-        if (signServer.equalsIgnoreCase(handleContext.getSign())) {
-            //TODO：如果校验通过，并且传入了 对称加密参数——进行参数解密
+        try {
+            if (signServer.equalsIgnoreCase(handleContext.getSign())) {
+                //TODO：如果校验通过，并且传入了 对称加密参数——进行参数解密
 
-            //填充入参类型
-            //setParamClass();
-            return true;
-        }else {
-            throw new RuntimeException("sign值校验失败");
+                //填充入参类型
+                //setParamClass();
+                log.info("[请求正常通过...]");
+                return true;
+            } else {
+                throw new RuntimeException("sign值校验失败：computeSignature is:【" + MDC.get(THREAD_LOCAL_SIGN_PARAM) + "】");
+            }
+        } finally {
+            try {
+                MDC.remove(THREAD_LOCAL_SIGN_PARAM);
+            } catch (IllegalArgumentException e) {
+                log.error("remove computeSignature error:{}", e.getMessage());
+            }
         }
+
     }
 
 
     /**
      * 对所有API请求参数（包括公共参数和业务参数，但除去sign参数和byte[]类型的参数）构建map集合
+     *
      * @param request
      * @return
      */
@@ -103,11 +112,11 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
         HandleContext handleContext = LocalHandleContext.getHandleContext();
 
         //map中存放公共参数
-        result.put(ApplicationConstant.APP_KEY,handleContext.getAppKey());
-        result.put(ApplicationConstant.VERSION,handleContext.getVersion());
-        result.put(ApplicationConstant.SIGN_METHOD,handleContext.getSignMethod());
-        result.put(ApplicationConstant.TIMESTAMP,handleContext.getTimestamp());
-        result.put(ApplicationConstant.METHOD,handleContext.getMethod());
+        result.put(ApplicationConstant.APP_KEY, handleContext.getAppKey());
+        result.put(ApplicationConstant.VERSION, handleContext.getVersion());
+        result.put(ApplicationConstant.SIGN_METHOD, handleContext.getSignMethod());
+        result.put(ApplicationConstant.TIMESTAMP, handleContext.getTimestamp());
+        result.put(ApplicationConstant.METHOD, handleContext.getMethod());
 
 
         String randomKey = handleContext.getRandomKey();
@@ -122,7 +131,7 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
 
         //业务参数: TODO：怎么做到统一: 编写对外文档的时候注明
         Map<String, String[]> parameterMap = request.getParameterMap();
-        if(CollectionUtil.isNotEmpty(parameterMap)) {
+        if (CollectionUtil.isNotEmpty(parameterMap)) {
             parameterMap.forEach((key, strings) -> {
                 result.put(key, Stream.of(strings).collect(Collectors.joining(",")));
             });

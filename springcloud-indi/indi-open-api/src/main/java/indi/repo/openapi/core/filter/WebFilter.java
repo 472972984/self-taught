@@ -1,6 +1,7 @@
 package indi.repo.openapi.core.filter;
 
 import indi.repo.openapi.constant.ApplicationConstant;
+import indi.repo.openapi.core.CustomRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
@@ -35,10 +36,11 @@ public class WebFilter extends OncePerRequestFilter {
             //转换成代理类
             ServletRequest requestWrapper = null;
             if(request instanceof HttpServletRequest) {
-                requestWrapper = new HttpServletRequestWrapper(request);
+                requestWrapper = new CustomRequestWrapper(request);
             }
             filterChain.doFilter(requestWrapper, response);
         } catch (Exception cause) {
+            cause.printStackTrace();
             log.error("Filter error:{}", cause.getMessage());
             // 全局异常处理-只处理json情况
         } finally {

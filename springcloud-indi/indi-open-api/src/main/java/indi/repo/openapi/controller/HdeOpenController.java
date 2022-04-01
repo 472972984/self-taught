@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * @author ChenHQ
  * @description: 开放api统一入口
@@ -23,27 +25,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HdeOpenController {
 
-    @Autowired
+    @Resource
     private OpenClient openClient;
 
     /**
-     * 开放API统一入口
-     * @param request
-     * @return
+     * 开放API统一入口   POST请求
+     * @param request  统一参数
      */
-    @PostMapping("/entrance")
-    public Result entrance(HdeRequest request) {
+    @PostMapping("entrance")
+    public Result<Object> entrancePost(HdeRequest request) {
         String method = LocalHandleContext.getHandleContext().getMethod();
         HdeOpenService serviceByMethod = openClient.getServiceByMethod(method);
         return serviceByMethod.execute(request);
     }
 
-
-
-    @GetMapping("/test")
-    public void test(){
-        System.out.println("进来了");
+    /**
+     * 开放API统一入口    GET请求
+     * @param request  统一参数
+     */
+    @GetMapping("entrance")
+    public Result<Object> entranceGet(HdeRequest request) {
+        String method = LocalHandleContext.getHandleContext().getMethod();
+        HdeOpenService serviceByMethod = openClient.getServiceByMethod(method);
+        return serviceByMethod.execute(request);
     }
+
 
 
 }

@@ -23,8 +23,7 @@ public abstract class AbstractOpenService implements HdeOpenService {
      * @param <T>
      * @return
      */
-    public <T extends Result> T
-    execute(HdeRequest request, Object obj) {
+    public <T extends Result> T execute(HdeRequest request, Object obj) {
         String method = LocalHandleContext.getHandleContext().getMethod();
         //待执行的方法名
         String methodName = getMethodName(method);
@@ -38,7 +37,7 @@ public abstract class AbstractOpenService implements HdeOpenService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("系统异常，请联系管理员");
+        throw new RuntimeException("服务器繁忙");
     }
 
 

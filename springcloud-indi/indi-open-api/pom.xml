@@ -25,6 +25,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>indi-repo</groupId>
             <artifactId>student-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
