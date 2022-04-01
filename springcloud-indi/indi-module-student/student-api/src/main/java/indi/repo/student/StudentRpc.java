@@ -1,6 +1,7 @@
 package indi.repo.student;
 
 import indi.repo.common.Result;
+import indi.repo.module.OrderInformDTO;
 import indi.repo.module.StudentQueryDTO;
 import indi.repo.module.StudentVO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,5 +18,7 @@ public interface StudentRpc {
     @PostMapping("/query")
     Result<StudentVO> queryStudent(@RequestBody StudentQueryDTO studentQueryDTO);
 
+    @PostMapping("/order/push")
+    Result hdeOrderInformPost(@RequestBody OrderInformDTO orderInformDTO) throws Exception;
 
 }

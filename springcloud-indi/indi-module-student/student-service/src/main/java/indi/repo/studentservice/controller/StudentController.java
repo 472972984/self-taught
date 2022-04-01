@@ -28,9 +28,6 @@ public class StudentController {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Value("${test.AAA}")
-    private String port;
-
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
@@ -45,7 +42,6 @@ public class StudentController {
 
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
-        System.out.println("port = " + port);
         System.out.println("request = " + request);
         System.out.println(Thread.currentThread().getName() + " 我来了！！！");
         applicationContext.publishEvent(new OrderSuccessEvent(this));

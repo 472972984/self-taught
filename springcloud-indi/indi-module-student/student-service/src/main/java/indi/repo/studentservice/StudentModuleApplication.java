@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date: 2021/6/18
  * @desc:
  */
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @EnableFeignClients
 @EnableAsync
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)

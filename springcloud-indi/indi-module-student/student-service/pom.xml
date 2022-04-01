@@ -32,7 +32,7 @@
             <artifactId>rocketmq-spring-boot-starter</artifactId>
         </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <exclusions>
@@ -45,12 +45,12 @@
                     <groupId>com.alibaba.nacos</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>-->
+        </dependency>
 
 
         <dependency>

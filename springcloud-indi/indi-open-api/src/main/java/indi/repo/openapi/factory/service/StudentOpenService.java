@@ -3,6 +3,7 @@ package indi.repo.openapi.factory.service;
 import indi.repo.common.Result;
 import indi.repo.openapi.annotation.OpenApiEvent;
 import indi.repo.openapi.base.HdeRequest;
+import indi.repo.openapi.constant.MethodMappingConstant;
 import indi.repo.student.StudentRpc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import static indi.repo.openapi.constant.MethodMappingConstant.QUERY_STUDENT;
  */
 @Slf4j
 @Service
-@OpenApiEvent({QUERY_STUDENT})
+@OpenApiEvent({QUERY_STUDENT, MethodMappingConstant.PUSH_ORDER})
 public class StudentOpenService extends AbstractOpenService {
 
     @Autowired

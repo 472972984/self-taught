@@ -16,34 +16,24 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 public class CheckAppKeyPermitAchieve implements CheckAppKeyPermit {
 
-    @Value("${dev.appkey:dev123456}")
-    private String devAppKey;
+    @Value("${hde.appkey:1474c0b6ca00299602f64}")
+    private String hdeAppkey;
 
-    @Value("${dev.secret:dev789}")
-    private String devSecret;
-
-    @Value("${test.appkey:test123456}")
-    private String testAppKey;
-
-    @Value("${test.secret:test789}")
-    private String testSecret;
+    @Value("${hde.secret:TEBLPplIBm_PNR7uPLnR}")
+    private String secret;
 
     /**
      * 校验 appKey 是否合法
-     * @param appKey
-     * @return
+     *
      */
     @Override
     public boolean checkPermit(String appKey) {
         HandleContext handleContext = LocalHandleContext.getHandleContext();
-        if(org.apache.commons.lang3.StringUtils.equals(appKey,devAppKey)) {
-            ((DefaultHandleContext)handleContext).setSecret(devSecret);
-            return true;
-        }else if(org.apache.commons.lang3.StringUtils.equals(appKey,testAppKey)) {
-            ((DefaultHandleContext)handleContext).setSecret(testSecret);
+        if (org.apache.commons.lang3.StringUtils.equals(appKey, hdeAppkey)) {
+            ((DefaultHandleContext) handleContext).setSecret(secret);
             return true;
         }
-        log.error("【check app-key failed - {}】",appKey);
+        log.error("【check app-key failed - {}】", appKey);
         return false;
     }
 }
