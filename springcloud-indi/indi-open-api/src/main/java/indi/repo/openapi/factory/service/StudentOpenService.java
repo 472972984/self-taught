@@ -1,8 +1,8 @@
 package indi.repo.openapi.factory.service;
 
+import indi.repo.common.Result;
 import indi.repo.openapi.annotation.OpenApiEvent;
 import indi.repo.openapi.base.HdeRequest;
-import indi.repo.openapi.common.Result;
 import indi.repo.student.StudentRpc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,6 @@ public class StudentOpenService extends AbstractOpenService {
 
     @Override
     public <T extends Result> T execute(HdeRequest request) {
-        return execute(request,studentRpc);
+        return execute(request, studentRpc);
     }
 }

@@ -12,5 +12,6 @@ public class MethodMappingConstant {
      */
     public static final String QUERY_STUDENT = "query.student";
 
+    public static final String PUSH_ORDER = "hde.order.inform.post";
 
 }

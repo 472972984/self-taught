@@ -1,8 +1,8 @@
 package indi.repo.openapi.factory.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import indi.repo.common.Result;
 import indi.repo.openapi.base.HdeRequest;
-import indi.repo.openapi.common.Result;
 import indi.repo.openapi.core.context.ApplicationStartupRunner;
 import indi.repo.openapi.core.context.LocalHandleContext;
 import indi.repo.openapi.factory.HdeOpenService;

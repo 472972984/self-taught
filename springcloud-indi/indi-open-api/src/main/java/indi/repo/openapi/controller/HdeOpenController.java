@@ -1,13 +1,11 @@
 package indi.repo.openapi.controller;
 
+import indi.repo.common.Result;
 import indi.repo.openapi.base.HdeRequest;
-import indi.repo.openapi.common.Result;
 import indi.repo.openapi.core.context.LocalHandleContext;
 import indi.repo.openapi.factory.HdeOpenService;
 import indi.repo.openapi.factory.OpenClient;
-import indi.repo.student.StudentRpc;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

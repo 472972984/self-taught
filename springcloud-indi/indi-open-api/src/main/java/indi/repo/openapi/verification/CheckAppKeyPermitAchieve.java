@@ -4,9 +4,8 @@ import indi.repo.openapi.core.context.DefaultHandleContext;
 import indi.repo.openapi.core.context.HandleContext;
 import indi.repo.openapi.core.context.LocalHandleContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
-import java.util.Objects;
 
 /**
  * @author ChenHQ
@@ -17,6 +16,18 @@ import java.util.Objects;
 @Slf4j
 public class CheckAppKeyPermitAchieve implements CheckAppKeyPermit {
 
+    @Value("${dev.appkey:dev123456}")
+    private String devAppKey;
+
+    @Value("${dev.secret:dev789}")
+    private String devSecret;
+
+    @Value("${test.appkey:test123456}")
+    private String testAppKey;
+
+    @Value("${test.secret:test789}")
+    private String testSecret;
+
     /**
      * 校验 appKey 是否合法
      * @param appKey
@@ -24,13 +35,12 @@ public class CheckAppKeyPermitAchieve implements CheckAppKeyPermit {
      */
     @Override
     public boolean checkPermit(String appKey) {
-        //TODO：开放一个微服务调用接口，获取 appKey 是否合法，及对应的 secret
-        // mock 一个假的
-        String secret = "helloWorld";
         HandleContext handleContext = LocalHandleContext.getHandleContext();
-        if(Objects.nonNull(handleContext)) {
-            //将拿到的 secret 放入上下文中
-            ((DefaultHandleContext)handleContext).setSecret(secret);
+        if(org.apache.commons.lang3.StringUtils.equals(appKey,devAppKey)) {
+            ((DefaultHandleContext)handleContext).setSecret(devSecret);
+            return true;
+        }else if(org.apache.commons.lang3.StringUtils.equals(appKey,testAppKey)) {
+            ((DefaultHandleContext)handleContext).setSecret(testSecret);
             return true;
         }
         log.error("【check app-key failed - {}】",appKey);

@@ -1,7 +1,7 @@
 package indi.repo.openapi.factory;
 
+import indi.repo.common.Result;
 import indi.repo.openapi.base.HdeRequest;
-import indi.repo.openapi.common.Result;
 
 /**
  * @author ChenHQ

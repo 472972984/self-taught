@@ -1,7 +1,7 @@
 package indi.repo.openapi.factory.service;
 
+import indi.repo.common.Result;
 import indi.repo.openapi.base.HdeRequest;
-import indi.repo.openapi.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
