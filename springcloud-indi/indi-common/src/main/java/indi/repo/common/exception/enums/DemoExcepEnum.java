@@ -3,6 +3,9 @@ package indi.repo.common.exception.enums;
 
 import indi.repo.common.exception.ExceptionEnumMessage;
 
+/**
+ * @author admin
+ */
 public enum DemoExcepEnum implements ExceptionEnumMessage {
 
     /**

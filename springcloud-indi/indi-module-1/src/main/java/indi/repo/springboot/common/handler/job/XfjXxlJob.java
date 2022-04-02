@@ -2,7 +2,6 @@ package indi.repo.springboot.common.handler.job;
 
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author xuxueli 2019-12-11 21:52:51
  */
-@Component
+//@Component
 public class XfjXxlJob {
 
 

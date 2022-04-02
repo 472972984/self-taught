@@ -20,10 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
@@ -39,6 +41,9 @@ import java.util.List;
 @RefreshScope
 @Slf4j
 public class TestController {
+
+    @Resource
+    private RedisLockRegistry lockRegistry;
 
     @Value("${swagger2.enable:false}")
     private String enable;
@@ -63,6 +68,7 @@ public class TestController {
     @GetMapping("/hello")
     public String test() {
         System.out.println("enable = " + enable);
+        System.out.println(lockRegistry);
         return "world";
     }
 

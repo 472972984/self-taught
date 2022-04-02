@@ -1,4 +1,4 @@
-package indi.repo.springboot.webconfig;
+package indi.repo.springboot.core.webconfig;
 
 import indi.repo.springboot.core.filter.WebFilter;
 import indi.repo.springboot.core.interception.HandleContextInterceptor;

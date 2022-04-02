@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableAsync //开启异步调用
+@EnableAsync
 @MapperScan("indi.repo.springboot.mapper")
 public class SpringBootDemoApplication {
 

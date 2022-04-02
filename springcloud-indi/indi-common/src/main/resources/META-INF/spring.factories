@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  indi.repo.common.aop.ControllerLoggerAspect,\
+  indi.repo.common.handler.GlobalExceptionHandler,\
+  indi.repo.common.utils.SpringUtils,\
+  indi.repo.common.config.RedisLockConfiguration,\
+  indi.repo.common.manager.ThreadPoolConfig
