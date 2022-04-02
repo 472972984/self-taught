@@ -7,7 +7,6 @@ import java.io.Serializable;
  *
  * @author: ChenHQ
  * @date 2021/12/16
- * @desc:
  */
 public interface HandleContext extends Cloneable, Serializable {
 

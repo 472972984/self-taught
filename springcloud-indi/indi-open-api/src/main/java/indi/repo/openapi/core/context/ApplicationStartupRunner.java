@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 /**
  * @author ChenHQ
- * @description: 容器初始化加载必要参数信息
+ * 容器初始化加载必要参数信息
  * @date 2021/12/21 11:18
  */
 @Component

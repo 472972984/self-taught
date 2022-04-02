@@ -21,7 +21,6 @@ import static indi.repo.common.constant.ApplicationConstant.MDC_TRACE;
  *
  * @author: ChenHQ
  * @date: 2021/6/19
- * @desc:
  */
 @Slf4j
 public class HandleContextInterceptor extends HandlerInterceptorAdapter implements Ordered {

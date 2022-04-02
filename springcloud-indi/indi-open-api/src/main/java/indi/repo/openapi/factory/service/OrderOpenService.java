@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author ChenHQ
- * @description: 订单开放API
+ * 订单开放API
  * @date 2021/12/21 9:37
  */
 @Slf4j

@@ -10,7 +10,6 @@ import java.util.List;
  *
  * @author: ChenHQ
  * @date: 2021/6/18
- * @desc:
  */
 public interface StudentDao extends BaseMapper<Student> {
 

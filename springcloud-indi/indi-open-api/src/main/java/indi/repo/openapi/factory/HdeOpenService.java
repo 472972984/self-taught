@@ -5,7 +5,7 @@ import indi.repo.openapi.base.HdeRequest;
 
 /**
  * @author ChenHQ
- * @description: 统一执行入口
+ * 统一执行入口
  * @date 2021/12/21 9:30
  */
 public interface HdeOpenService {

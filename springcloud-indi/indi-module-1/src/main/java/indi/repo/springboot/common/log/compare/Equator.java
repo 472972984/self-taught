@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 对象比对器，用于对比两个对象的所有属性是否完全相等
- *
+ * @author admin
  */
 public interface Equator {
     /**

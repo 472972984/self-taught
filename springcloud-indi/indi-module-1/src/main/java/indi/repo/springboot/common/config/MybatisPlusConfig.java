@@ -28,7 +28,6 @@ import javax.sql.DataSource;
  *  (2)在这个配置文件中配置多数据源配置
  * @author: ChenHQ
  * @date: 2021/7/8
- * @desc:
  */
 @Configuration
 @Slf4j

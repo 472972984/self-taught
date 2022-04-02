@@ -25,7 +25,7 @@ import static indi.repo.openapi.constant.ApplicationConstant.THREAD_LOCAL_SIGN_P
 
 /**
  * @author ChenHQ
- * @description: 验证许可拦截器
+ * 验证许可拦截器
  * @date 2021/12/16 16:35
  */
 @Slf4j

@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author ChenHQ
- * @description: 统一入参默认实现
+ * 统一入参默认实现
  * @date 2021/12/21 19:21
  */
 @Data

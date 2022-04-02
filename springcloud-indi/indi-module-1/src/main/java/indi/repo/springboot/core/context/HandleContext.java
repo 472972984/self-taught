@@ -7,31 +7,30 @@ import java.io.Serializable;
  *
  * @author: ChenHQ
  * @date: 2021/6/19
- * @desc:
  */
 public interface HandleContext extends Cloneable, Serializable {
 
     /**
      * 操作id
-     * @return
+     * @return 操作id
      */
     String getTraceId();
 
     /**
      * 操作时间
-     * @return
+     * @return 操作时间
      */
     String getDate();
 
     /**
      * 当前用户id
-     * @return
+     * @return 当前用户id
      */
     String getUserId();
 
     /**
      * 当前用户名称
-     * @return
+     * @return 当前用户名称
      */
     String getUsername();
 }

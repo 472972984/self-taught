@@ -34,7 +34,7 @@ import java.util.Objects;
 
 /**
  * @author ChenHQ
- * @description: 自定义参数解析器
+ * 自定义参数解析器
  * @date 2021/12/21 15:27
  */
 public class CustomResolver implements HandlerMethodArgumentResolver {

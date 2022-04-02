@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  *
  * @author: ChenHQ
  * @date: 2021/6/18
- * @desc:
  */
 @TableName("student")
 @Data

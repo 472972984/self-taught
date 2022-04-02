@@ -7,7 +7,7 @@ import java.util.*;
  * 对比器抽象类
  */
 public abstract class AbstractEquator implements Equator {
-    private static final List<Class> WRAPPER = new ArrayList<>();
+    private static final List<Class<?>> WRAPPER = new ArrayList<>();
 
     static {
         WRAPPER.add(Byte.class);
@@ -21,9 +21,6 @@ public abstract class AbstractEquator implements Equator {
         WRAPPER.add(Boolean.class);
     }
 
-    /*Arrays.asList(Byte.class, Short.class,
-            Integer.class, Long.class, Float.class, Double.class, Character.class,
-            Boolean.class, Boolean.class);*/
 
     private final List<String> includeFields;
     private final List<String> excludeFields;
@@ -31,6 +28,11 @@ public abstract class AbstractEquator implements Equator {
     public AbstractEquator() {
         includeFields = Collections.emptyList();
         excludeFields = Collections.emptyList();
+    }
+
+
+    public static List<Class<?>> getWrapper() {
+        return WRAPPER;
     }
 
     /**

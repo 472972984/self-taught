@@ -8,7 +8,6 @@ import java.util.*;
 
 /**
  * @author ChenHQ
- * @description: TODO
  * @date 2022/3/31 18:43
  */
 public class MyFieldBaseEquator extends AbstractEquator {

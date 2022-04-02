@@ -2,7 +2,7 @@ package indi.repo.openapi.verification;
 
 /**
  * @author ChenHQ
- * @description: app key 核验
+ * app key 核验
  * @date 2021/12/16 17:17
  */
 public interface CheckAppKeyPermit {

@@ -22,7 +22,6 @@ public class SpringExpression<T> {
 
     private final static String ExpressionPrefix = "#";
 
-    // shared param discoverer since it caches data internally
     private final ParameterNameDiscoverer paramNameDiscoverer =
             new DefaultParameterNameDiscoverer();
 

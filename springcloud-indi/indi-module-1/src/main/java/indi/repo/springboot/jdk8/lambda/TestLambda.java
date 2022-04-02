@@ -12,7 +12,6 @@ import java.util.function.Predicate;
  *
  * @author: ChenHQ
  * @date: 2021/8/9
- * @desc:
  */
 public class TestLambda {
 

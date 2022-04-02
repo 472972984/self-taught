@@ -21,7 +21,6 @@ import java.util.UUID;
  *
  * @author: ChenHQ
  * @date: 2021/6/19
- * @desc:
  */
 @Slf4j
 public class WebFilter extends OncePerRequestFilter {

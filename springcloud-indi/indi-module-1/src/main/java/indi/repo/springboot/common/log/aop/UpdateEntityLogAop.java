@@ -2,13 +2,13 @@ package indi.repo.springboot.common.log.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import indi.repo.common.manager.AsyncManager;
 import indi.repo.common.utils.SpringUtils;
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.entity.ModifiedField;
 import indi.repo.springboot.common.log.spring.LogSpringExpression;
 import indi.repo.springboot.common.log.util.OperatorLogUtils;
 import indi.repo.springboot.common.manager.AsyncFactory;
-import indi.repo.springboot.common.manager.AsyncManager;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.SystemLog;
 import lombok.extern.slf4j.Slf4j;

@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @author: ChenHQ
  * @date: 2021/6/18
- * @desc:
  */
 @SpringBootApplication
 @EnableDiscoveryClient

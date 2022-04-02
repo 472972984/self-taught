@@ -13,7 +13,6 @@ import java.util.TimerTask;
  *
  * @author: ChenHQ
  * @date: 2021/8/31
- * @desc:
  */
 @Slf4j
 public class AsyncFactory {
@@ -21,7 +20,6 @@ public class AsyncFactory {
 
     /**
      * 异步插入
-     * @param
      */
     public static TimerTask insertXfjWxSyncException(final SystemLog systemLog) {
         return new TimerTask() {

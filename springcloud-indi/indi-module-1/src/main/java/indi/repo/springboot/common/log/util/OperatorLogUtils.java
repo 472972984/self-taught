@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 /**
  * @author ChenHQ
- * @description: 对象比较器
+ * 对象比较器
  */
 public class OperatorLogUtils {
 
@@ -24,7 +24,6 @@ public class OperatorLogUtils {
      *
      * @param modifyObject: 修改过后的对象
      * @param oldObject:    旧值对象
-     * @return
      */
     public static List<ModifiedField> compareObject(Object modifyObject, Object oldObject) {
         //获取需要比对的字段
@@ -83,9 +82,6 @@ public class OperatorLogUtils {
     /**
      * 状态、url
      * 根据集合对象返回对应的字符串： 【状态】，【url】
-     *
-     * @param modifiedFields
-     * @return
      */
     public static String getModifiedFieldContent(List<ModifiedField> modifiedFields) {
         String result = "";
@@ -104,9 +100,6 @@ public class OperatorLogUtils {
      * 返回集合数组：
      * 【参数值】原值为“127.0.0.1”，现值为“127.0.0.2”。
      * 【状态】，原值为“启用”，现值为“停用”。
-     *
-     * @param modifiedFields
-     * @return
      */
     public static List<String> getContentList(List<ModifiedField> modifiedFields) {
 

@@ -7,7 +7,6 @@ import java.util.Objects;
  * 单例模式具备典型的3个特点：1、只有一个实例。 2、自我实例化。 3、提供全局访问点
  * @author: ChenHQ
  * @date: 2021/8/9
- * @desc:
  */
 public class SingletonPattern {
 

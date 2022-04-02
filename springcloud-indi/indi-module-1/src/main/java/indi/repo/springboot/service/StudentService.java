@@ -9,7 +9,6 @@ import indi.repo.springboot.module.dto.StudentDTO;
  *
  * @author: ChenHQ
  * @date: 2021/6/18
- * @desc:
  */
 public interface StudentService extends IService<Student> {
 

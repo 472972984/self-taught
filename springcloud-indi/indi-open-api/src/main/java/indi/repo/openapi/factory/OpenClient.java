@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * @author ChenHQ
- * @description: 客户端适配调用服务
+ * 客户端适配调用服务
  * @date 2021/12/21 14:08
  */
 @Component

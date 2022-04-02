@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 /**
  * @author ChenHQ
- * @description: 三种签名算法实现
+ * 三种签名算法实现
  * @date 2021/12/16 19:38
  */
 @Slf4j

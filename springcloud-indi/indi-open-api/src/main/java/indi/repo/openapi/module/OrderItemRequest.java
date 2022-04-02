@@ -7,7 +7,7 @@ import lombok.Data;
 
 /**
  * @author ChenHQ
- * @description: 根据商户号查询订单信息请求类
+ * 根据商户号查询订单信息请求类
  * @date 2021/12/21 10:41
  */
 //@Data

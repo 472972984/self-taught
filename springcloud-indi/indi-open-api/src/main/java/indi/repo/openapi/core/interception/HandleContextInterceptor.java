@@ -21,7 +21,6 @@ import java.util.Objects;
  *
  * @author: ChenHQ
  * @date 2021/12/16 16:35
- * @desc:
  */
 @Slf4j
 public class HandleContextInterceptor extends HandlerInterceptorAdapter implements Ordered {

@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author ChenHQ
- * @description: 抽象实现
+ * 抽象实现
  * @date 2021/12/24 14:48
  */
 public abstract class AbstractOpenService implements HdeOpenService {

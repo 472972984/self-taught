@@ -3,7 +3,7 @@ package indi.repo.springboot.common.log.enums;
 /**
  * @author ChenHQ
  * @title: OptTypeEnum
- * @description: 操作类型枚举类
+ * 操作类型枚举类
  */
 public enum OptTypeEnum {
 
@@ -37,8 +37,6 @@ public enum OptTypeEnum {
 
     /**
      * 根据传入的操作类型，获取中文
-     * @param optType
-     * @return
      */
     public static String getValueByOptType(String optType){
         return OptTypeEnum.valueOf(optType).getValue();

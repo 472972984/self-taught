@@ -26,7 +26,6 @@ import static indi.repo.common.exception.enums.DemoExcepEnum.RECORD_NOT_EXIST;
  *
  * @author: ChenHQ
  * @date: 2021/6/18
- * @desc:
  */
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> implements StudentService {

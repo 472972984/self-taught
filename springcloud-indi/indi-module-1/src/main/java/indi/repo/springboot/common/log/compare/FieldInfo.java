@@ -4,8 +4,10 @@ import java.util.Objects;
 
 /**
  * 不同的属性
+ * @author admin
  */
 public class FieldInfo {
+
     private String fieldName;
     private Class<?> fieldType;
     private Object firstVal;

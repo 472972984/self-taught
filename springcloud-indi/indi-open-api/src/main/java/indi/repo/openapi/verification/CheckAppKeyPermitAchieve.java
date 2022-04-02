@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author ChenHQ
- * @description: 校验 appKey 核验
+ * 校验 appKey 核验
  * @date 2021/12/17 14:01
  */
 @Repository

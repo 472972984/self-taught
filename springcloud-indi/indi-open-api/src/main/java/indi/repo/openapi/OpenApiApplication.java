@@ -9,7 +9,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *
  * @author: ChenHQ
  * @date 2021/12/16
- * @desc:
  */
 @SpringBootApplication
 @EnableFeignClients(basePackages = {"indi.repo.*"})

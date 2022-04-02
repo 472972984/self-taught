@@ -4,6 +4,9 @@ import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author admin
+ */
 @AllArgsConstructor
 @Getter
 public class LogObject {

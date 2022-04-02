@@ -6,7 +6,6 @@ package indi.repo.springboot.module.vo;
  *
  * @author: ChenHQ
  * @date: 2021/8/3
- * @desc:
  */
 public class StudentVo {
 

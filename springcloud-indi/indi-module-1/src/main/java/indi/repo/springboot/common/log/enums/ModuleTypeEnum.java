@@ -4,7 +4,7 @@ package indi.repo.springboot.common.log.enums;
 /**
  * @author ChenHQ
  * @title: ModuleTypeEnum
- * @description: 日志模块枚举类
+ * 日志模块枚举类
  */
 public enum ModuleTypeEnum {
 
@@ -40,8 +40,6 @@ public enum ModuleTypeEnum {
 
     /**
      * 根据传入的模块类型，获取中文
-     * @param moduleType
-     * @return
      */
     public static String getValueByModuleType(String moduleType){
         return ModuleTypeEnum.valueOf(moduleType).getValue();

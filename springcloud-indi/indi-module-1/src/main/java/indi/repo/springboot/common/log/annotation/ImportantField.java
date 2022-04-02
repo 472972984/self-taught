@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * @author ChenHQ
  * @title: ImportantField
- * @description: 标识是否是重要字段注解
+ * 标识是否是重要字段注解
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -2,7 +2,7 @@ package indi.repo.studentservice.common;
 
 /**
  * @author ChenHQ
- * @description: 开放api常量
+ * 开放api常量
  * @date 2021/12/27 10:30
  */
 public class ApplicationConstant {

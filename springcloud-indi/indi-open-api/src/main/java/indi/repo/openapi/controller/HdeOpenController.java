@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 /**
  * @author ChenHQ
- * @description: 开放api统一入口
+ * 开放api统一入口
  * @date 2021/12/21 11:03
  */
 @Slf4j

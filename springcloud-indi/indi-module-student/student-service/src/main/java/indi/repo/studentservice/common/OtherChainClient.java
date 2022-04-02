@@ -20,7 +20,7 @@ import static indi.repo.studentservice.common.ApplicationConstant.THREAD_LOCAL_S
 
 /**
  * @author ChenHQ
- * @description: 第三方链客户端
+ * 第三方链客户端
  * @date 2022/2/25 3:45 PM
  */
 @Slf4j

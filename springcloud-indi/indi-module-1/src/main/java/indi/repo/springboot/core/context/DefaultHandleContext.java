@@ -7,7 +7,6 @@ import lombok.Data;
  *
  * @author: ChenHQ
  * @date: 2021/6/19
- * @desc:
  */
 @Data
 public class DefaultHandleContext implements HandleContext {

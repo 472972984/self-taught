@@ -10,11 +10,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.103.110.199:31670
+        server-addr: http://nacos.goyoto.cn
+        namespace: 065b143e-0067-4bb0-aeb2-aefac322829f
       config:
-        server-addr: 47.103.110.199:31670
-        group: local
-        namespace: 8ed19181-8c92-4106-8c08-9ff13b175929
-        #指定配置文件类型
-        file-extension: yaml
+        server-addr: http://nacos.goyoto.cn
+        file-extension: yml
+        namespace: 065b143e-0067-4bb0-aeb2-aefac322829f
+
 

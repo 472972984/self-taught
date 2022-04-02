@@ -5,7 +5,6 @@ package indi.repo.springboot.core.context;
  *
  * @author: ChenHQ
  * @date: 2021/6/19
- * @desc:
  */
 public class LocalHandleContext {
 

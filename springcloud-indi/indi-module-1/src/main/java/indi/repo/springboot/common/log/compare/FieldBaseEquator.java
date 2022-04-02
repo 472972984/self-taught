@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * 基于属性的比对器
- *
+ * @author admin
  */
 public class FieldBaseEquator extends AbstractEquator {
     public FieldBaseEquator() {
@@ -42,43 +42,6 @@ public class FieldBaseEquator extends AbstractEquator {
         return getFieldInfos(first, second);
     }
 
-/*    private List<FieldInfo> getFieldInfos(Object first, Object second) {
-
-        Class<?> firstClass = first.getClass();
-        Class<?> secondClass = second.getClass();
-        if(firstClass.toString().equals(secondClass.toString())) {
-
-        }
-
-
-        Object obj = first == null ? second : first;
-        Class<?> clazz = obj.getClass();
-        List<FieldInfo> diffField = new LinkedList<>();
-        // 获取所有字段
-        Field[] fields = clazz.getDeclaredFields();
-        // 遍历所有的字段
-        for (Field field : fields) {
-            String fieldName = field.getName();
-            try {
-                // 开启访问权限，否则获取私有字段会报错
-                field.setAccessible(true);
-                Object firstVal = first == null ? null : field.get(first);
-                Object secondVal = second == null ? null : field.get(second);
-                // 封装字段信息
-                FieldInfo fieldInfo = new FieldInfo(fieldName, field.getType(), firstVal, secondVal);
-                boolean eq = isFieldEquals(fieldInfo);
-                if (!eq) {
-                    // 记录不相等的字段
-                    diffField.add(fieldInfo);
-                }
-            } catch (IllegalAccessException e) {
-                // 只要调用了 field.setAccessible(true) 就不会报这个异常
-                throw new IllegalStateException("获取属性进行比对发生异常: " + fieldName, e);
-            }
-        }
-        return diffField;
-    }*/
-
     private List<FieldInfo> getFieldInfos(Object first, Object second) {
 
         List<FieldInfo> diffField = new LinkedList<>();
@@ -98,18 +61,21 @@ public class FieldBaseEquator extends AbstractEquator {
                 // 开启访问权限，否则获取私有字段会报错
                 Object firstVal = first == null ? null : firstField.get(first);
                 Object secondVal = second == null ? null : secondField.get(second);
-                // 封装字段信息
-                FieldInfo fieldInfo = new FieldInfo(fieldName, firstField.getType(), firstVal, secondVal);
-                boolean eq = isFieldEquals(fieldInfo);
-                if (!eq) {
-                    // 记录不相等的字段
-                    diffField.add(fieldInfo);
+                if (AbstractEquator.getWrapper().contains(firstField.getType())) {
+                    // 封装字段信息
+                    FieldInfo fieldInfo = new FieldInfo(fieldName, firstField.getType(), firstVal, secondVal);
+                    boolean eq = isFieldEquals(fieldInfo);
+                    if (!eq) {
+                        // 记录不相等的字段
+                        diffField.add(fieldInfo);
+                    }
+                } else {
+                    diffField.addAll(getDiffFields(firstVal, secondVal));
                 }
             } catch (IllegalAccessException e) {
                 // 只要调用了 firstField.setAccessible(true) 就不会报这个异常
                 throw new IllegalStateException("获取属性进行比对发生异常: " + fieldName, e);
             } catch (NoSuchFieldException e) {
-                continue;
             }
         }
         return diffField;

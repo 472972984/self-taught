@@ -5,7 +5,6 @@ package indi.repo.springboot.design.factory;
  *
  * @author: ChenHQ
  * @date: 2021/8/9
- * @desc:
  */
 public class HumanFactory extends AbstractHumanFactory {
 

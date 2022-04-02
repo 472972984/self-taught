@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author ChenHQ
- * @description: 订单信息
+ * 订单信息
  * @date 2021/12/17 17:20
  */
 @Data

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 功能说明:
+ * 功能说明: 全局异常捕获
  *
  * @author: ChenHQ
  * @date: 2021/6/18
