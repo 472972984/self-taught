@@ -10,6 +10,7 @@
         <module>indi-module-2</module>
         <module>indi-open-api</module>
         <module>indi-module-student</module>
+        <module>indi-common</module>
     </modules>
 
     <groupId>org.example</groupId>

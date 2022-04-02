@@ -3,7 +3,7 @@ package indi.repo.springboot.common.cache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.collect.Maps;
-import indi.repo.springboot.common.utils.ReflectUtils;
+import indi.repo.common.utils.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.cache.CacheKey;

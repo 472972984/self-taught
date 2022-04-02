@@ -1,10 +1,10 @@
 package indi.repo.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.common.exception.BaseException;
+import indi.repo.common.utils.BeanUtils;
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.enums.OptTypeEnum;
-import indi.repo.springboot.common.utils.BeanUtils;
 import indi.repo.springboot.core.context.HandleContext;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static indi.repo.springboot.common.exception.enums.DemoExcepEnum.RECORD_NOT_EXIST;
+import static indi.repo.common.exception.enums.DemoExcepEnum.RECORD_NOT_EXIST;
+
 
 /**
  * 功能说明:

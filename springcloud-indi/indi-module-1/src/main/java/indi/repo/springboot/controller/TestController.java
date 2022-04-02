@@ -2,12 +2,12 @@ package indi.repo.springboot.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.google.common.collect.Lists;
-import indi.repo.springboot.common.Result;
-import indi.repo.springboot.common.annotation.RepeatSubmit;
+import indi.repo.common.annotation.RepeatSubmit;
+import indi.repo.common.exception.BaseException;
+import indi.repo.common.exception.enums.DemoExcepEnum;
+import indi.repo.common.module.Result;
+import indi.repo.common.utils.HibernateValidatorUtils;
 import indi.repo.springboot.common.cache.MemoryCache;
-import indi.repo.springboot.common.exception.BaseException;
-import indi.repo.springboot.common.exception.enums.DemoExcepEnum;
-import indi.repo.springboot.common.utils.HibernateValidatorUtils;
 import indi.repo.springboot.core.context.HandleContext;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;

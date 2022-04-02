@@ -1,12 +1,11 @@
 package indi.repo.springboot.core.filter;
 
-import indi.repo.springboot.common.constant.ApplicationConstant;
+import indi.repo.common.constant.ApplicationConstant;
 import indi.repo.springboot.core.interception.CustomRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.FilterChain;

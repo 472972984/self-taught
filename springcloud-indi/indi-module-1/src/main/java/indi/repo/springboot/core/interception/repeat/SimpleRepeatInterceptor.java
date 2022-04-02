@@ -1,9 +1,9 @@
 package indi.repo.springboot.core.interception.repeat;
 
 import com.alibaba.fastjson.JSON;
+import indi.repo.common.utils.SpringUtils;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.core.interception.RepeatSubmitInterceptor;
-import indi.repo.springboot.common.utils.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class SimpleRepeatInterceptor extends RepeatSubmitInterceptor {
 
-    private static final String separator = ":";
+    private static final String SEPARATOR = ":";
 
-    private static final Integer expireTime = 30;
+    private static final Integer EXPIRE_TIME = 30;
 
     @Override
     public Boolean isRepeatSubmit(HttpServletRequest request) {
@@ -41,7 +41,7 @@ public class SimpleRepeatInterceptor extends RepeatSubmitInterceptor {
         }
 
         String url = request.getRequestURI();
-        String keyRedis = userId + separator + url;
+        String keyRedis = userId + SEPARATOR + url;
 
         try {
             String oldParam = redisTemplate.opsForValue().get(keyRedis);
@@ -65,9 +65,9 @@ public class SimpleRepeatInterceptor extends RepeatSubmitInterceptor {
                 return oldParam.equals(nowParam);
             }
 
-            redisTemplate.opsForValue().set(keyRedis, nowParam, expireTime, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(keyRedis, nowParam, EXPIRE_TIME, TimeUnit.SECONDS);
         } catch (Exception e) {
-            log.error("isRepeatSubmit error:{}", e);
+            log.error("isRepeatSubmit error:{}", e.getMessage());
             return false;
         }
         return false;
@@ -76,14 +76,11 @@ public class SimpleRepeatInterceptor extends RepeatSubmitInterceptor {
 
     /**
      * 获取 body 中的参数信息
-     * @param request
-     * @return
-     * @throws IOException
      */
     private String getBodyParam(HttpServletRequest request) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
         StringBuffer sb = new StringBuffer();
-        String line = "";
+        String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line);
         }

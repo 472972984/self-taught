@@ -1,7 +1,7 @@
 package indi.repo.springboot.common.manager;
 
 
-import indi.repo.springboot.common.utils.SpringUtils;
+import indi.repo.common.utils.SpringUtils;
 import indi.repo.springboot.entity.SystemLog;
 import indi.repo.springboot.mapper.SystemLogMapper;
 import lombok.extern.slf4j.Slf4j;

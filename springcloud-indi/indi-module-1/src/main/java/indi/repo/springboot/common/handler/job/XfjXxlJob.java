@@ -233,19 +233,4 @@ public class XfjXxlJob {
 
     }
 
-    /**
-     * 5、生命周期任务示例：任务初始化与销毁时，支持自定义相关逻辑；
-     */
-    @XxlJob(value = "demoJobHandler2", init = "init", destroy = "destroy")
-    public void demoJobHandler2() throws Exception {
-        XxlJobHelper.log("XXL-JOB, Hello World.");
-    }
-    public void init(){
-        System.out.println("init");
-    }
-    public void destroy(){
-        System.out.println("destory");
-    }
-
-
 }

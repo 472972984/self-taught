@@ -1,7 +1,7 @@
 package indi.repo.springboot.core.interception;
 
-import indi.repo.springboot.common.annotation.RepeatSubmit;
-import indi.repo.springboot.common.exception.BaseException;
+import indi.repo.common.annotation.RepeatSubmit;
+import indi.repo.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.HandlerMethod;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-import static indi.repo.springboot.common.exception.enums.DemoExcepEnum.REPEAT_SUBMIT;
+import static indi.repo.common.exception.enums.DemoExcepEnum.REPEAT_SUBMIT;
 
 
 /**

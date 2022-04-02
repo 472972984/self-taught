@@ -2,13 +2,13 @@ package indi.repo.springboot.common.log.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import indi.repo.common.utils.SpringUtils;
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.entity.ModifiedField;
 import indi.repo.springboot.common.log.spring.LogSpringExpression;
 import indi.repo.springboot.common.log.util.OperatorLogUtils;
 import indi.repo.springboot.common.manager.AsyncFactory;
 import indi.repo.springboot.common.manager.AsyncManager;
-import indi.repo.springboot.common.utils.SpringUtils;
 import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.SystemLog;
 import lombok.extern.slf4j.Slf4j;
@@ -73,22 +73,6 @@ public class UpdateEntityLogAop {
             //执行目标方法
             result = joinPoint.proceed(args);
 
-            /* SpelExpressionParser parser = new SpelExpressionParser();
-             DefaultParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
-
-            String[] paramNames = nameDiscoverer.getParameterNames(method);
-
-            // 解析过后的Spring表达式对象
-            Expression expression = parser.parseExpression("#studentDTO.studentId");
-            // spring的表达式上下文对象
-            EvaluationContext context = new StandardEvaluationContext();
-            // 给上下文赋值
-            for(int i = 0 ; i < args.length ; i++) {
-                context.setVariable(paramNames[i], args[i]);
-            }
-             expression.getValue(context).toString();
-             */
-
         } catch (Throwable e) {
             //业务出现异常处理
             t = e;
@@ -99,15 +83,11 @@ public class UpdateEntityLogAop {
                 AsyncManager.getInstance().execute(AsyncFactory.insertXfjWxSyncException(systemLog));
             }
         }
-
         return result;
     }
 
     /**
      * 构建操作日志对象
-     * @param modifiedFields
-     * @param updateEntityLog
-     * @param id
      * @return
      */
     private SystemLog SystemLogInstance(List<ModifiedField> modifiedFields, UpdateEntityLog updateEntityLog, String id) {
