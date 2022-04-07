@@ -55,6 +55,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>HdrHistogram</artifactId>
+                    <groupId>org.hdrhistogram</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -101,6 +107,20 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hystrix-core</artifactId>
+                    <groupId>com.netflix.hystrix</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jsr305</artifactId>
+                    <groupId>com.google.code.findbugs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -110,7 +130,6 @@
         </dependency>
 
     </dependencies>
-
 
     <build>
         <plugins>
@@ -140,6 +159,29 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <descriptors>
+                        <descriptor>src/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>release</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
@@ -150,6 +192,43 @@
             </plugin>
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <app.env>dev</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <app.env>test</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <app.env>uat</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <app.env>prod</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

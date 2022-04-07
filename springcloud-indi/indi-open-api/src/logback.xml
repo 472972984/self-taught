@@ -8,14 +8,14 @@
 <configuration debug="false" scan="true" scanPeriod="60 seconds">
 
     <!-- 设置日志记录名字 -->
-    <contextName>hde-open-api</contextName>
+    <contextName>indi-open-api</contextName>
 
     <!-- 动态日志级别 -->
     <jmxConfigurator/>
 
     <!-- 定义日志文件 输出位置 -->
     <!-- <property></property>设置的name和value会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量-->
-    <property name="APP_NAME" value="hde-open-api"/>
+    <property name="APP_NAME" value="indi-open-api"/>
     <property name="log_dir" value="logs"/>
 
     <!-- 日志最大的历史 7天 -->
