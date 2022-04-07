@@ -3,6 +3,8 @@ package indi.repo.openapi.core.interception;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Maps;
 import indi.repo.openapi.constant.ApplicationConstant;
 import indi.repo.openapi.core.context.HandleContext;
@@ -12,14 +14,16 @@ import indi.repo.openapi.verification.CheckAppKeyPermit;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static indi.repo.openapi.constant.ApplicationConstant.THREAD_LOCAL_SIGN_PARAM;
 
@@ -80,8 +84,6 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
             if (signServer.equalsIgnoreCase(handleContext.getSign())) {
                 //TODO：如果校验通过，并且传入了 对称加密参数——进行参数解密
 
-                //填充入参类型
-                //setParamClass();
                 log.info("[请求正常通过...]");
                 return true;
             } else {
@@ -100,9 +102,6 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
 
     /**
      * 对所有API请求参数（包括公共参数和业务参数，但除去sign参数和byte[]类型的参数）构建map集合
-     *
-     * @param request
-     * @return
      */
     private Map<String, String> paramsSign(HttpServletRequest request) {
         //返回对象
@@ -129,15 +128,41 @@ public class PermitVerificationInterceptor extends HandlerInterceptorAdapter imp
             result.put(ApplicationConstant.ENCRYPT_PARM, encryptParm);
         }
 
-        //业务参数: TODO：怎么做到统一: 编写对外文档的时候注明
         Map<String, String[]> parameterMap = request.getParameterMap();
         if (CollectionUtil.isNotEmpty(parameterMap)) {
-            parameterMap.forEach((key, strings) -> {
-                result.put(key, Stream.of(strings).collect(Collectors.joining(",")));
-            });
+            parameterMap.forEach((key, strings) -> result.put(key, String.join(",", strings)));
+        }
+
+        String method = request.getMethod();
+        if (HttpMethod.POST.toString().equalsIgnoreCase(method)) {
+            String jsonParam;
+            try {
+                jsonParam = getBodyParam(request);
+            } catch (IOException e) {
+                log.error("【解析body出现异常:{}】", e.getMessage());
+                jsonParam = "";
+            }
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(jsonParam)) {
+                //去除json串多余的空格
+                JSONObject object = JSONUtil.parseObj(jsonParam);
+                result.put("jsonParam", object.toString());
+            }
         }
 
         return result;
+    }
+
+    /**
+     * 获取 body 中的参数信息
+     */
+    private String getBodyParam(HttpServletRequest request) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
     }
 
 
