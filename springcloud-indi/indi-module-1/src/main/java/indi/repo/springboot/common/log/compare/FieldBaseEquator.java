@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * 基于属性的比对器
+ *
  * @author admin
  */
 public class FieldBaseEquator extends AbstractEquator {
@@ -28,8 +29,8 @@ public class FieldBaseEquator extends AbstractEquator {
      */
     @Override
     public List<FieldInfo> getDiffFields(Object first, Object second) {
-        Assert.notNull(first,"参数不能null");
-        Assert.notNull(second,"参数不能null");
+        Assert.notNull(first, "参数不能null");
+        Assert.notNull(second, "参数不能null");
 
         if (first == second) {
             return Collections.emptyList();
@@ -61,7 +62,7 @@ public class FieldBaseEquator extends AbstractEquator {
                 // 开启访问权限，否则获取私有字段会报错
                 Object firstVal = first == null ? null : firstField.get(first);
                 Object secondVal = second == null ? null : secondField.get(second);
-                if (AbstractEquator.getWrapper().contains(firstField.getType())) {
+                if (AbstractEquator.getWrapper().contains(firstField.getType()) || (firstVal instanceof Collection && secondVal instanceof Collection)) {
                     // 封装字段信息
                     FieldInfo fieldInfo = new FieldInfo(fieldName, firstField.getType(), firstVal, secondVal);
                     boolean eq = isFieldEquals(fieldInfo);
@@ -69,6 +70,12 @@ public class FieldBaseEquator extends AbstractEquator {
                         // 记录不相等的字段
                         diffField.add(fieldInfo);
                     }
+                } else if (onlyOneNull(firstVal, secondVal)) {
+                    FieldInfo fieldInfo = new FieldInfo(fieldName, firstField.getType(), firstVal, secondVal);
+                    diffField.add(fieldInfo);
+                } else if (Objects.isNull(firstVal) && Objects.isNull(secondVal)) {
+                    //双方都为null，不做记录
+                    continue;
                 } else {
                     diffField.addAll(getDiffFields(firstVal, secondVal));
                 }
@@ -79,6 +86,10 @@ public class FieldBaseEquator extends AbstractEquator {
             }
         }
         return diffField;
+    }
+
+    private boolean onlyOneNull(Object firstVal, Object secondVal) {
+        return (Objects.isNull(firstVal) && Objects.nonNull(secondVal)) || (Objects.isNull(secondVal) && Objects.nonNull(firstVal));
     }
 
 

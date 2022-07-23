@@ -18,7 +18,7 @@ public abstract class AbstractEquator implements Equator {
         WRAPPER.add(Double.class);
         WRAPPER.add(Character.class);
         WRAPPER.add(Boolean.class);
-        WRAPPER.add(Boolean.class);
+        WRAPPER.add(String.class);
     }
 
 
@@ -134,9 +134,9 @@ public abstract class AbstractEquator implements Equator {
         if (first instanceof Collection
                 && second instanceof Collection) {
             // 如果两个都是集合类型，尝试转换为数组再进行深度比较
-            return Objects.deepEquals(((Collection) first).toArray(), ((Collection) second).toArray());
+            return Objects.deepEquals(Arrays.stream(((Collection<?>) first).toArray()).sorted().toArray(), Arrays.stream(((Collection<?>) second).toArray()).sorted().toArray());
         }
-        return Objects.deepEquals(first, second);
+        return Objects.deepEquals(first,second);
     }
 
 }
