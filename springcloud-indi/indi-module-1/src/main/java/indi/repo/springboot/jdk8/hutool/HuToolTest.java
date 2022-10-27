@@ -2,6 +2,7 @@ package indi.repo.springboot.jdk8.hutool;
 
 
 import cn.hutool.core.builder.CompareToBuilder;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -26,8 +27,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author ChenHQ
@@ -37,14 +41,23 @@ public class HuToolTest {
 
     public static void main(String[] args) throws Exception {
 
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+        List<Integer> list1 = Arrays.asList(4, 4, 4, 4, 5, 6, 7);
+
+        System.out.println(CollectionUtil.union(list, list1));
+        System.out.println(CollectionUtil.unionDistinct(list, list1));
+        System.out.println(CollectionUtil.unionAll(list, list1));
+        System.out.println(list.stream().map(String::valueOf).collect(Collectors.joining(",","[","]")));
+
+    }
+
+    private static void reflect() {
         StudentDTO studentDTO1 = StudentDTO.builder().id(1L).sex("1").username("chq").build();
         StudentDTO studentDTO2 = StudentDTO.builder().id(2L).sex("2").username("test1").build();
 
         System.out.println(CompareToBuilder.reflectionCompare(studentDTO1, studentDTO2));
 
         System.out.println(OperatorLogUtils.compareObject(studentDTO1, studentDTO2));
-
-
     }
 
     private static void rsaSecret() throws IOException {
