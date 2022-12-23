@@ -14,6 +14,14 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <app.env/>
+        <node.port/>
+        <app.MainClass>SpringBootDemoApplication</app.MainClass>
+        <app.fully.qualified.MainClass>indi.repo.springboot.SpringBootDemoApplication</app.fully.qualified.MainClass>
+    </properties>
+
 
     <dependencies>
 
@@ -143,10 +151,10 @@
             </exclusions>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.github.yitter</groupId>
@@ -163,23 +171,127 @@
 
 
     <build>
-        <finalName>application</finalName>
-        <resources>
-            <resource>
-                <!--这里定义需要处理的配置资源路径-->
-                <directory>src/main/resources</directory>
-                <!--启用过滤-->
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.6</version>
             </plugin>
 
-            <!-- java编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${app.fully.qualified.MainClass}</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <excludes>
+                        <exclude>*.sh</exclude>
+                        <exclude>*.tar.gz</exclude>
+                        <exclude>application.yaml</exclude>
+                        <exclude>application-*.yaml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-test-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/test/java</directory>
+                                    <includes>
+                                        <include>**/*.txt</include>
+                                        <include>**/*.csv</include>
+                                        <include>**/*.json</include>
+                                        <include>**/*.properties</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>src/test/resources</directory>
+                                    <includes>
+                                        <include>**/*.txt</include>
+                                        <include>**/*.csv</include>
+                                        <include>**/*.json</include>
+                                        <include>**/*.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test*.java</include><!--run test classes -->
+                    </includes>
+                    <skip>true</skip><!--skip run test classes -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>release</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -187,12 +299,53 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
+                    </compilerArguments>
                 </configuration>
             </plugin>
-        </plugins>
 
+        </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <app.env>dev</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <app.env>test</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <app.env>uat</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <app.env>prod</app.env>
+                <app.name>${project.build.finalName}</app.name>
+                <app.mainClass>${app.fully.qualified.MainClass}</app.mainClass>
+                <app.mainClass-short>${app.MainClass}</app.mainClass-short>
+            </properties>
+        </profile>
+    </profiles>
 
 
 

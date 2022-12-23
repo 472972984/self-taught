@@ -24,4 +24,9 @@ public interface StudentService extends IService<Student> {
 
     void updateById(StudentDTO studentDTO);
 
+    void test(String username);
+
+    void testTransactionalA();
+    void testTransactionalB();
+
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @author ChenHQ
  * @date 2022/3/28 16:47
  */
-@Service
+//@Service
 @Slf4j
 public class MqListenner {
 

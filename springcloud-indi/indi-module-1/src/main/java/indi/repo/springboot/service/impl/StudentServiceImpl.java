@@ -2,6 +2,7 @@ package indi.repo.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import indi.repo.common.exception.BaseException;
+import indi.repo.common.exception.enums.DemoExcepEnum;
 import indi.repo.common.utils.BeanUtils;
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.enums.OptTypeEnum;
@@ -14,6 +15,7 @@ import indi.repo.springboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
 
     @Override
     @Async
-    public void testAsync(String userId,String tranceId) {
+    public void testAsync(String userId, String tranceId) {
 
         try {
             Thread.sleep(2000);
@@ -116,5 +118,27 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
 
         Student studentCurrent = BeanUtils.copyObject(studentDTO, Student.class);
         studentDao.updateById(studentCurrent);
+    }
+
+
+    @Override
+//    @Transactional(rollbackFor = Exception.class)
+    public void testTransactionalA() {
+        baseMapper.insert(new Student(null, "testTransactionalA-chenhuiqi", "1"));
+        testTransactionalB();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testTransactionalB() {
+        baseMapper.insert(new Student(null, "testTransactionalB-chenhuiqi", "2"));
+        throw new BaseException(DemoExcepEnum.ERROR_TEST);
+    }
+
+    @Override
+    public void test(String username) {
+
+        System.out.println("方法执行中 username = " + username);
+
     }
 }

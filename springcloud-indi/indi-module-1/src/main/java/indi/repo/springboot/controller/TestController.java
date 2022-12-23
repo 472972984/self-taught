@@ -66,14 +66,30 @@ public class TestController {
      * @return
      */
     @GetMapping("/hello")
-    public String test() {
+    public String test(String name) {
+//        System.out.println("chenhuiqi");
+        System.out.println("name = " + name);
         System.out.println("enable = " + enable);
         System.out.println(lockRegistry);
+
+        Student student = studentDao.selectByIdCustom(14L);
+        System.out.println("student = " + student);
+
         return "world";
     }
 
+    @GetMapping("getStudentById/{Id}")
+    public Student getStudentById(@PathVariable("Id") String Id) {
+        Student student  = new Student();
+        student.setId(Long.parseLong(Id));
+        student.setUsername("chenhuiqi");
+        return student;
+    }
+
+
     /**
      * 测试上传文件
+     *
      * @param file
      * @param name
      * @return
@@ -199,12 +215,15 @@ public class TestController {
     }
 
     @GetMapping("/test/aop")
-    public void testAop(){
+    public void testAop() {
         studentService.updateById(StudentDTO.builder().id(1L).username("chen").sex("man").build());
     }
 
-
-
+    @GetMapping("/test/transactional")
+    public void transactional() {
+        studentService.testTransactionalA();
+        //studentService.testTransactionalB();
+    }
 
 
 }

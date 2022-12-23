@@ -6,7 +6,6 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,6 +29,8 @@ public class ControllerLoggerAspect {
     public void controllerPoint() {
     }
 
+    //另外一种写法
+    //@Before("execution(public * indi.repo.*.controller..*(..)) && args(names,..)")
 
     @Before("controllerPoint()")
     public void doBefore(JoinPoint point) {

@@ -3,14 +3,13 @@ package indi.repo.springboot.common.config;
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 定时调度配置文件
  * @author kjp
  * @date 2021-09-07
  */
-@Configuration
+//@Configuration
 public class XxlJobConfig {
 
     @Value("${xxl.job.admin.addresses}")

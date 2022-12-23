@@ -8,7 +8,6 @@ import indi.repo.studentservice.listener.OrderSuccessEvent;
 import indi.repo.studentservice.module.StudentDO;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +27,7 @@ public class StudentController {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
+//    @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
     public static final String TEST_TOPIC = "TEST_TOPIC";

@@ -5,9 +5,9 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.collect.Maps;
 import indi.repo.common.utils.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
