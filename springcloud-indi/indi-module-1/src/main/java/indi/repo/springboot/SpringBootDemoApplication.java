@@ -1,6 +1,7 @@
 package indi.repo.springboot;
 
 
+import com.thebeastshop.forest.springboot.annotation.ForestScan;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableFeignClients
 @EnableAsync
 @MapperScan("indi.repo.springboot.mapper")
+@ForestScan("indi.repo.springboot")
 public class SpringBootDemoApplication {
 
     public static void main(String[] args) {

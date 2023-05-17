@@ -60,6 +60,9 @@ public class TestController {
     @Autowired
     private TestApi testApi;
 
+    @Resource
+    private AgentClient client;
+
     /**
      * 测试项目启动web访问
      *
@@ -77,6 +80,13 @@ public class TestController {
 
         return "world";
     }
+
+    @GetMapping("/client")
+    public void testClient() {
+        String task = client.executeTask();
+        System.out.println("task = " + task);
+    }
+
 
     @GetMapping("getStudentById/{Id}")
     public Student getStudentById(@PathVariable("Id") String Id) {
