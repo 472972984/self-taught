@@ -1,4 +1,4 @@
-package indi.repo.springboot.controller;
+package indi.repo.springboot.forest;
 
 import com.dtflys.forest.annotation.BaseRequest;
 import com.dtflys.forest.annotation.Get;
