@@ -13,6 +13,9 @@ import indi.repo.springboot.core.context.LocalHandleContext;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.feign.api.TestApi;
 import indi.repo.springboot.forest.AgentClient;
+import indi.repo.springboot.log.InternalOpType;
+import indi.repo.springboot.log.annotation.OpLog;
+import indi.repo.springboot.log.core.OPLogContext;
 import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
@@ -70,7 +73,7 @@ public class TestController {
      * @return
      */
     @GetMapping("/hello")
-    public String test(String name) {
+    public String testHello(String name) {
 //        System.out.println("chenhuiqi");
         System.out.println("name = " + name);
         System.out.println("enable = " + enable);
@@ -91,7 +94,7 @@ public class TestController {
 
     @GetMapping("getStudentById/{Id}")
     public Student getStudentById(@PathVariable("Id") String Id) {
-        Student student  = new Student();
+        Student student = new Student();
         student.setId(Long.parseLong(Id));
         student.setUsername("chenhuiqi");
         return student;
@@ -119,10 +122,13 @@ public class TestController {
      * @return
      */
     @GetMapping("/student/{id}")
-    public String test(@PathVariable Long id) {
+    @OpLog(message = "获取学生信息", messageSuffix = "学生ID: {id}")
+    public Result<String> test(@PathVariable Long id) {
+        OPLogContext.putOpType(InternalOpType.OTHER);
         Student student = studentService.queryStudent(id);
         System.out.println("student = " + student);
-        return "world";
+        OPLogContext.put("id", id);
+        return Result.ok("world");
     }
 
     /**

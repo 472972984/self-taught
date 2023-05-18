@@ -1,6 +1,7 @@
 package indi.repo.springboot.common.log.spring;
 
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
+import indi.repo.springboot.log.annotation.OpLog;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -38,6 +39,18 @@ public class SpringExpression<T> {
 
         Method targetMethod = getTargetMethod(targetClass, method);
         LogObject root = new LogObject(updateEntityLog, args);
+        return new MethodBasedEvaluationContext(root, targetMethod, args, this.paramNameDiscoverer);
+    }
+
+    /**
+     * Create the suitable {@link EvaluationContext} for the specified event handling on the
+     * specified method.
+     */
+    public EvaluationContext createEvaluationContext(OpLog updateEntityLog, Class<?> targetClass,
+                                                     Method method, Object[] args) {
+
+        Method targetMethod = getTargetMethod(targetClass, method);
+        Log2Object root = new Log2Object(updateEntityLog, args);
         return new MethodBasedEvaluationContext(root, targetMethod, args, this.paramNameDiscoverer);
     }
 

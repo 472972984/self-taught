@@ -2,6 +2,7 @@ package indi.repo.springboot.common.log.spring;
 
 import indi.repo.springboot.common.log.annotation.UpdateEntityLog;
 import indi.repo.springboot.common.log.context.BizLogContext;
+import indi.repo.springboot.log.annotation.OpLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.expression.EvaluationContext;
@@ -36,6 +37,10 @@ public class LogSpringExpression {
 
 
     public String matcherValue(String template, UpdateEntityLog entityLog, Class<?> target, Method method, Object[] args) {
+        return this.doMatherValue(template, param -> this.getValue(entityLog, target, method, args, param, String.class));
+    }
+
+    public String matcherValue(String template, OpLog entityLog, Class<?> target, Method method, Object[] args) {
         return this.doMatherValue(template, param -> this.getValue(entityLog, target, method, args, param, String.class));
     }
 
@@ -86,6 +91,31 @@ public class LogSpringExpression {
      */
     @SuppressWarnings("unchecked")
     public <T> T getValue(UpdateEntityLog entityLog, Class<?> target, Method method, Object[] args, String condition, Class<T> valueClass) {
+        try {
+            EvaluationContext evaluationContext = springExpression.createEvaluationContext(entityLog, target, method, args);
+            AnnotatedElementKey methodKey = new AnnotatedElementKey(method, target);
+            return (T) springExpression.condition(condition, methodKey, evaluationContext, valueClass);
+        } catch (SpelEvaluationException e) {
+            log.warn("spel match error ", e);
+        }
+        return null;
+    }
+
+    /**
+     * 得到注解上的SPEL表达式解析后的值
+     *
+     * @param entityLog     日志注解
+     * @param target     调用对象
+     * @param method     调用方法
+     * @param args       调用参数
+     * @param condition  SPEL语句
+     * @param valueClass 值对象类型
+     * @param <T>        返回的类型
+     * @return 解析后的数据
+     * @see
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(OpLog entityLog, Class<?> target, Method method, Object[] args, String condition, Class<T> valueClass) {
         try {
             EvaluationContext evaluationContext = springExpression.createEvaluationContext(entityLog, target, method, args);
             AnnotatedElementKey methodKey = new AnnotatedElementKey(method, target);
