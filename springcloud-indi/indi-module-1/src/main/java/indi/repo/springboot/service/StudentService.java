@@ -29,4 +29,5 @@ public interface StudentService extends IService<Student> {
     void testTransactionalA();
     void testTransactionalB();
 
+    void testSpel(StudentDTO studentDTO, String time);
 }

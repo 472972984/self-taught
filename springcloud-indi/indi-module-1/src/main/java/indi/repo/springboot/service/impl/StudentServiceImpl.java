@@ -12,6 +12,7 @@ import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.mapper.StudentDao;
 import indi.repo.springboot.module.dto.StudentDTO;
 import indi.repo.springboot.service.StudentService;
+import indi.repo.springboot.spel.StockWarnCollect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -140,5 +141,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
 
         System.out.println("方法执行中 username = " + username);
 
+    }
+
+    @Override
+    @StockWarnCollect(studentId = "#studentDTO.id", studentName = "#studentDTO.username", time = "#time")
+    public void testSpel(StudentDTO studentDTO, String time) {
+        System.out.println("studentDTO = " + studentDTO);
+        System.out.println("time = " + time);
     }
 }

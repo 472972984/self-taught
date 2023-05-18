@@ -242,5 +242,12 @@ public class TestController {
         //studentService.testTransactionalB();
     }
 
+    @GetMapping("/testSpel")
+    public void testSpel() {
+        StudentDTO studentDTO = StudentDTO.builder().id(2L).sex("男").username("chenhuiqi").build();
+        String time = "2023-05-18";
+        studentService.testSpel(studentDTO, time);
+    }
+
 
 }
