@@ -14,7 +14,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -36,7 +35,7 @@ public class OpLogJoinPointProcessor {
     public Object process(ProceedingJoinPoint jp) throws Throwable {
 
         try {
-            Object result = new Object();
+            Object result;
             try {
                 result = jp.proceed();
             } catch (Exception ce) {
@@ -44,12 +43,12 @@ public class OpLogJoinPointProcessor {
                 OPLogContext.putResult(false);
                 OPLogContext.putMessage(ce.getMessage());
                 OPLogContext.openSwitch();
-                processOPLog(jp, result);
+                processOPLog(jp);
                 throw ce;
             }
 
             //执行opLog插入操作
-            processOPLog(jp, result);
+            processOPLog(jp);
 
             return result;
         } finally {
@@ -63,7 +62,7 @@ public class OpLogJoinPointProcessor {
     /**
      * 处理操作日志
      */
-    private void processOPLog(ProceedingJoinPoint joinPoint, Object returnObj) throws ClassNotFoundException {
+    private void processOPLog(ProceedingJoinPoint joinPoint) throws ClassNotFoundException {
         String targetName = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] arguments = joinPoint.getArgs();
@@ -106,12 +105,6 @@ public class OpLogJoinPointProcessor {
                     //todo 其实这边用spring的el表达式解析器更好，有空再改
 //                    opLogRecord.setDesc(this.analyzeParams(describe));
                     opLogRecord.setMessage(this.analyzeParams(message));
-
-//                    Object[] objects = new Object[arguments.length + 1];
-                    Object[] objects1 = Arrays.copyOf(arguments, arguments.length + 1);
-                    objects1[arguments.length] = returnObj;
-                    String template = logSpringExpression.matcherValue("#id", opLog, targetClass, method, objects1);
-                    System.out.println("template = " + template);
 
                     opLogRecord.setOpModule(module.bizName());
                     opLogRecord.setOpType(type.bizName());

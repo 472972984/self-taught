@@ -36,7 +36,6 @@ public class OpLogConfig {
                 throw new BaseException(500, "不支持的操作");
             }
 
-            ;
         };
     }
 
