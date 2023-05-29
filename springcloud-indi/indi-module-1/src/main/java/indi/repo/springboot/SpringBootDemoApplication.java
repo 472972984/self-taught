@@ -2,9 +2,11 @@ package indi.repo.springboot;
 
 
 import com.thebeastshop.forest.springboot.annotation.ForestScan;
+import indi.repo.springboot.controller.DemoProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,6 +23,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @MapperScan("indi.repo.springboot.mapper")
 @ForestScan("indi.repo.springboot.forest")
+@EnableConfigurationProperties({
+        DemoProperties.class
+})
 public class SpringBootDemoApplication {
 
     public static void main(String[] args) {
