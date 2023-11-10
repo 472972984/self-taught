@@ -1,4 +1,4 @@
-package indi.repo.springboot.controller;
+package indi.repo.springboot.common.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

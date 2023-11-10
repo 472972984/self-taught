@@ -2,7 +2,7 @@ package indi.repo.springboot;
 
 
 import com.thebeastshop.forest.springboot.annotation.ForestScan;
-import indi.repo.springboot.controller.DemoProperties;
+import indi.repo.springboot.common.config.DemoProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

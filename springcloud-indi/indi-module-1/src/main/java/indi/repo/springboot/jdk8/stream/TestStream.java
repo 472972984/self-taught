@@ -1,6 +1,5 @@
 package indi.repo.springboot.jdk8.stream;
 
-import cn.hutool.core.date.DateUtil;
 import indi.repo.springboot.entity.Student;
 import indi.repo.springboot.entity.SystemLog;
 
@@ -34,12 +33,6 @@ public class TestStream {
         students.add(new Student(1L, "dc2", "女"));
 
         //------------------------------------------------------
-
-        systemLogs.add(new SystemLog(1L, DateUtil.parseDate("2023-04-03 00:00:00")));
-        systemLogs.add(new SystemLog(2L, DateUtil.parseDate("2023-04-02 00:00:00")));
-        systemLogs.add(new SystemLog(3L, DateUtil.parseDate("2023-04-01 00:00:00")));
-        systemLogs.add(new SystemLog(4L, DateUtil.parseDate("2023-04-05 00:00:00")));
-
     }
 
 
