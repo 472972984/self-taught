@@ -121,7 +121,7 @@
             <artifactId>freemarker</artifactId>
         </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <exclusions>
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>
