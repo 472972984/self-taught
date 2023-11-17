@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author ChenHQ
@@ -32,5 +33,6 @@ public class StudentDTO {
     private Long id;
 
 
+    private List<Integer> age;
 
 }
