@@ -2,7 +2,6 @@ package indi.repo.springboot.common.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.google.common.collect.Maps;
 import indi.repo.common.utils.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
@@ -13,6 +12,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
@@ -43,7 +43,7 @@ public class MemoryCache {
             .maximumSize(1000)
             .build();
 
-    private static Map<String, ReentrantLock> lockMap = Maps.newConcurrentMap();
+    private static Map<String, ReentrantLock> lockMap = new ConcurrentHashMap<>();
 
     public static Object getCache(String cacheName, List<Object> pars, Function<Object, Object> function) {
         String key = generateKey(cacheName, pars);

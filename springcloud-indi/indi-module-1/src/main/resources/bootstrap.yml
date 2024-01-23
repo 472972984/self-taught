@@ -1,19 +1,11 @@
 server:
   port: 8080
+  work:
+    port: 2222
 spring:
   application:
     #指定的应用名称： 对应 nacos Data Id
     name: springboot-demo
-  cloud:
-    nacos:
-      discovery:
-        server-addr: ip:port
-      config:
-        server-addr: ip:port
-        group: local
-        namespace: 8ed19181-8c92-4106-8c08-9ff13b175929
-        #指定配置文件类型
-        file-extension: yaml
 
   datasource:
     username: root
@@ -40,6 +32,12 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
   mapper-locations: classpath:mappers/*.xml
+
+forest:
+  timeout: 3333
+  log-enabled: true
+  log-response-content: true
+  backend: okhttp3
 
 #熔断器隔离策略： Hystrix官方强烈建议使用THREAD
 #THREAD以及SEMAPHORE，当隔离策略为 THREAD 时，是没办法拿到 ThreadLocal 中的值的。

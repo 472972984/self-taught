@@ -1,7 +1,6 @@
 package indi.repo.springboot.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.google.common.collect.Lists;
 import indi.repo.common.annotation.RepeatSubmit;
 import indi.repo.common.exception.BaseException;
 import indi.repo.common.exception.enums.DemoExcepEnum;
@@ -32,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +61,7 @@ public class TestController {
     @Autowired
     private StudentDao studentDao;
 
-    @Autowired
+//    @Autowired
     private TestApi testApi;
 
     @Resource
@@ -138,7 +138,7 @@ public class TestController {
      */
     @GetMapping("/student/getAll")
     public Result<List<Student>> test22() {
-        return Result.ok((List<Student>) MemoryCache.getCache("studentAll", Lists.newArrayList(), o -> {
+        return Result.ok((List<Student>) MemoryCache.getCache("studentAll", new ArrayList<>(), o -> {
             log.info("hit from db");
             return studentDao.selectAll();
         }));

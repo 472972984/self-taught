@@ -122,26 +122,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-cloud-alibaba-nacos-config</artifactId>
-                    <groupId>com.alibaba.cloud</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>nacos-client</artifactId>
-                    <groupId>com.alibaba.nacos</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>

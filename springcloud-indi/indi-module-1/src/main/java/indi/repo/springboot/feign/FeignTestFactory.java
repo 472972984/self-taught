@@ -8,7 +8,6 @@ package indi.repo.springboot.feign;
 import feign.hystrix.FallbackFactory;
 import indi.repo.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import static indi.repo.common.exception.BaseException.CALLBACK_CODE;
 
@@ -17,7 +16,7 @@ import static indi.repo.common.exception.BaseException.CALLBACK_CODE;
  * 异常处理的工厂类
  * @author admin
  */
-@Component
+//@Component
 @Slf4j
 public class FeignTestFactory<T> implements FallbackFactory<T> {
 

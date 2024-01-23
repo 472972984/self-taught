@@ -3,16 +3,6 @@ spring:
     active: test
   application:
     name: indi-student
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 47.103.110.199:31670
-      config:
-        server-addr: 47.103.110.199:31670
-        group: local
-        namespace: 8ed19181-8c92-4106-8c08-9ff13b175929
-        #指定配置文件类型
-        file-extension: yaml
 
 
 
