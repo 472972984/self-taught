@@ -4,8 +4,13 @@
 *.class
 
 # 忽略 Maven 生成的 target 目录
-*/target/
+*target
 
+*.log
+
+*.lst
+
+*.DS_Store
 
 # 忽略 IntelliJ IDEA 生成的 .idea 目录
 .idea/
