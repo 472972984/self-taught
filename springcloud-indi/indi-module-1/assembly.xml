@@ -58,6 +58,7 @@
             <outputDirectory>config</outputDirectory>
             <includes>
                 <include>application.yaml</include>
+                <include>application.properties</include>
                 <include>application-${app.env}.yaml</include>
                 <include>bootstrap.yml</include>
             </includes>
