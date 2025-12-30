@@ -333,6 +333,40 @@
                 </configuration>
             </plugin>
 
+
+            <!-- Git提交信息插件 -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.9.10</version> <!-- 使用最新稳定版 -->
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase> <!-- 在初始化阶段执行，早于打包 -->
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 生成的属性文件路径（会被打包到jar中） -->
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                    <!-- 包含的Git信息（按需配置） -->
+                    <includeOnlyProperties>
+                        <!--unzip -qc data-route-endpoint.jar BOOT-INF/classes/git.properties-->
+                        <includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.message.short$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                    <!-- 忽略Git工作区未提交的修改（可选） -->
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

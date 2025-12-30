@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
         DemoProperties.class
 })
 @ServletComponentScan
+@PropertySource(value = "classpath:git.properties", encoding = "UTF-8", ignoreResourceNotFound = true)
 public class SpringBootDemoApplication {
 
     public static void main(String[] args) {
