@@ -70,7 +70,7 @@ public class ForkJoinPoolUtil<T> extends RecursiveAction {
 
         consumer = list -> list.stream().map(e -> Thread.currentThread().getName() + "----------(" + e + ")----------").forEach(System.out::println);
 
-        List<Integer> voList = IntStream.range(0, 10).boxed().map(e -> e.intValue()).collect(Collectors.toList());
+        List<Integer> voList = IntStream.range(0, 10).boxed().collect(Collectors.toList());
 
         ForkJoinPool pool = new ForkJoinPool(3);
         ForkJoinPoolUtil<List<Integer>> poolUtil = ForkJoinPoolUtil.getInstance(0, voList.size(), sign, consumer, voList);

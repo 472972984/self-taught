@@ -50,7 +50,7 @@
         <caffeine.version>2.6.2</caffeine.version>
         <xxl-job.version>2.3.0</xxl-job.version>
         <freemarker.version>2.3.28</freemarker.version>
-        <hutoool.version>5.7.9</hutoool.version>
+        <hutoool.version>5.8.11</hutoool.version>
         <rmq.version>2.1.0</rmq.version>
     </properties>
 
